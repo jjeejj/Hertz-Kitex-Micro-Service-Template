@@ -7,7 +7,7 @@ import (
 
 	"github.com/cloudwego/hertz/pkg/common/hlog"
 	hertzlogrus "github.com/hertz-contrib/obs-opentelemetry/logging/logrus"
-	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/shared/consts"
+	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/pkg/consts"
 	"gopkg.in/natefinch/lumberjack.v2"
 )
 

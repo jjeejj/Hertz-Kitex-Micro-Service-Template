@@ -8,6 +8,8 @@ import (
 
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/golang-jwt/jwt"
+	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/pkg/consts"
+	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/pkg/middleware"
 	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/server/cmd/api/biz/errno"
 	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/server/cmd/api/biz/model/server/cmd/api"
 	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/server/cmd/api/global"
@@ -16,8 +18,6 @@ import (
 	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/server/cmd/api/kitex_gen/profile"
 	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/server/cmd/api/kitex_gen/trip"
 	models "github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/server/cmd/api/model"
-	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/shared/consts"
-	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/shared/middleware"
 )
 
 // Login .

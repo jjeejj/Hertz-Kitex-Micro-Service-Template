@@ -9,7 +9,7 @@ import (
 	"github.com/hertz-contrib/gzip"
 	"github.com/hertz-contrib/limiter"
 	"github.com/hertz-contrib/requestid"
-	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/shared/middleware"
+	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/pkg/middleware"
 	"go.opentelemetry.io/otel/trace"
 )
 

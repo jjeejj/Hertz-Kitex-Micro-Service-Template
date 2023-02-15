@@ -3,7 +3,7 @@ package objid
 import (
 	"fmt"
 
-	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/shared/id"
+	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/pkg/id"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 

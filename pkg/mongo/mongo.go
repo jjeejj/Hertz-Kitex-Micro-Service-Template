@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/shared/mongo/objid"
+	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/pkg/mongo/objid"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )

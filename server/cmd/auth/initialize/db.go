@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/shared/consts"
+	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/pkg/consts"
 
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/server/cmd/auth/global"

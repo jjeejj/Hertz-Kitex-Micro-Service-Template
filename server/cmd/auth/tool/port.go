@@ -3,7 +3,7 @@ package tool
 import (
 	"net"
 
-	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/shared/consts"
+	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/pkg/consts"
 )
 
 // GetFreePort get a free port.

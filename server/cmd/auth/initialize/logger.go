@@ -5,7 +5,7 @@ import (
 	"path"
 	"time"
 
-	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/shared/consts"
+	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/pkg/consts"
 
 	"github.com/cloudwego/kitex/pkg/klog"
 	kitexlogrus "github.com/kitex-contrib/obs-opentelemetry/logging/logrus"
