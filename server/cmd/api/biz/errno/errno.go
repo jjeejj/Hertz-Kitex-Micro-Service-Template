@@ -5,7 +5,7 @@ import (
 
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
-	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/server/cmd/api/biz/errno/kitex_gen/errno"
+	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/kitex_gen/errno"
 )
 
 type ErrNo struct {

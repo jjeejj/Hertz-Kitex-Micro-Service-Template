@@ -1,6 +1,6 @@
 module github.com/jjeejj/Hertz-Kitex-Micro-Service-Template
 
-go 1.18
+go 1.19
 
 require (
 	github.com/apache/thrift v0.13.0
