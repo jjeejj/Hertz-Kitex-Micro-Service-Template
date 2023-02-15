@@ -1,5 +1,5 @@
 init:
-	hz new -idl ./../../idl/api.proto -mod github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/server/cmd/api
+	hz new -idl ./../../../idl/api.proto -mod github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/server/cmd/api
 
 update:
-	hz update -I -idl ./../../idl/api.proto
+	hz update -idl ./../../../idl/api.proto
