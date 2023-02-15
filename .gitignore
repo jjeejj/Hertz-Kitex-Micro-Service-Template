@@ -15,3 +15,7 @@
 # vendor/
 
 .vscode
+
+# temp directory
+tmp/*log/
+tmp/nacos

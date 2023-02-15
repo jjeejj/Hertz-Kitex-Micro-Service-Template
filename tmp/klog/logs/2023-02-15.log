@@ -1,8 +1,0 @@
-{"level":"info","msg":"ip: 0.0.0.0","time":"2023-02-15T10:52:21+08:00"}
-{"level":"info","msg":"port: 58987","time":"2023-02-15T10:52:21+08:00"}
-{"level":"info","msg":"Config Info: {127.0.0.1 8848 6e815bb4-25d0-4155-a1e0-6ec17a7ee600 nacos nacos auth_srv AUTH_GROUP}","time":"2023-02-15T10:52:21+08:00"}
-{"level":"fatal","msg":"nacos config failed: EOF","time":"2023-02-15T10:52:21+08:00"}
-{"level":"info","msg":"ip: 0.0.0.0","time":"2023-02-15T12:18:28+08:00"}
-{"level":"info","msg":"port: 49385","time":"2023-02-15T12:18:28+08:00"}
-{"level":"info","msg":"Config Info: {127.0.0.1 8848 6e815bb4-25d0-4155-a1e0-6ec17a7ee600 nacos nacos auth_srv AUTH_GROUP}","time":"2023-02-15T12:18:28+08:00"}
-{"level":"fatal","msg":"nacos config failed: invalid character 'h' looking for beginning of value","time":"2023-02-15T12:18:28+08:00"}
