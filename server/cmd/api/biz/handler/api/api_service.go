@@ -8,6 +8,7 @@ import (
 
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/golang-jwt/jwt"
+
 	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/kitex_gen/auth"
 	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/pkg/consts"
 	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/pkg/middleware"
@@ -103,92 +104,4 @@ func UpdateUserInfo(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 	errno.SendResponse(c, errno.Success, api.UpdateUserResponse{})
-}
-
-// UploadAvatar .
-// @router /auth/avatar [POST]
-func UploadAvatar(ctx context.Context, c *app.RequestContext) {
-	var err error
-	aid, flag := c.Get(consts.AccountID)
-	if !flag {
-		errno.SendResponse(c, errno.ParamErr, nil)
-		return
-	}
-
-	resp, err := global.AuthClient.UploadAvatar(ctx, &auth.UploadAvatarRequset{AccountId: aid.(int64)})
-	if err != nil {
-		errno.SendResponse(c, errno.RequestServerFail, nil)
-		return
-	}
-	errno.SendResponse(c, errno.Success, api.UploadAvatarResponse{UploadUrl: resp.UploadUrl})
-}
-
-// CreateCar .
-// @router /car [POST]
-func CreateCar(ctx context.Context, c *app.RequestContext) {
-}
-
-// GetCar .
-// @router /car [GET]
-func GetCar(ctx context.Context, c *app.RequestContext) {
-}
-
-// GetCars .
-// @router /cars [GET]
-func GetCars(ctx context.Context, c *app.RequestContext) {
-}
-
-// GetProfile .
-// @router /profile [GET]
-func GetProfile(ctx context.Context, c *app.RequestContext) {
-}
-
-// SubmitProfile .
-// @router /profile [POST]
-func SubmitProfile(ctx context.Context, c *app.RequestContext) {
-}
-
-// ClearProfile .
-// @router /profile [DELETE]
-func ClearProfile(ctx context.Context, c *app.RequestContext) {
-}
-
-// GetProfilePhoto .
-// @router /profile/photo [GET]
-func GetProfilePhoto(ctx context.Context, c *app.RequestContext) {
-}
-
-// CreateProfilePhoto .
-// @router /profile/photo [POST]
-func CreateProfilePhoto(ctx context.Context, c *app.RequestContext) {
-}
-
-// CompleteProfilePhoto .
-// @router /profile/photo/complete [POST]
-func CompleteProfilePhoto(ctx context.Context, c *app.RequestContext) {
-}
-
-// ClearProfilePhoto .
-// @router /profile/photo [DELETE]
-func ClearProfilePhoto(ctx context.Context, c *app.RequestContext) {
-}
-
-// CreateTrip .
-// @router /trip [POST]
-func CreateTrip(ctx context.Context, c *app.RequestContext) {
-}
-
-// GetTrip .
-// @router /trip/:id [GET]
-func GetTrip(ctx context.Context, c *app.RequestContext) {
-}
-
-// GetTrips .
-// @router /trips [GET]
-func GetTrips(ctx context.Context, c *app.RequestContext) {
-}
-
-// UpdateTrip .
-// @router /trip/:id [PUT]
-func UpdateTrip(ctx context.Context, c *app.RequestContext) {
 }

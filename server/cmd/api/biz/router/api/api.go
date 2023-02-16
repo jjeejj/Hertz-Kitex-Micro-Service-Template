@@ -3,8 +3,8 @@
 package Api
 
 import (
-	api "github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/server/cmd/api/biz/handler/api"
 	"github.com/cloudwego/hertz/pkg/app/server"
+	api "github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/server/cmd/api/biz/handler/api"
 )
 
 /*
@@ -17,28 +17,10 @@ import (
 func Register(r *server.Hertz) {
 
 	root := r.Group("/", rootMw()...)
-	root.POST("/car", append(_createcarMw(), api.CreateCar)...)
-	root.GET("/car", append(_getcarMw(), api.GetCar)...)
-	root.GET("/cars", append(_getcarsMw(), api.GetCars)...)
-	root.POST("/profile", append(_submitprofileMw(), api.SubmitProfile)...)
-	root.DELETE("/profile", append(_clearprofileMw(), api.ClearProfile)...)
-	root.GET("/trips", append(_gettripsMw(), api.GetTrips)...)
 	{
 		_auth := root.Group("/auth", _authMw()...)
-		_auth.POST("/avatar", append(_upload_vatarMw(), api.UploadAvatar)...)
 		_auth.GET("/info", append(_getuserinfoMw(), api.GetUserInfo)...)
 		_auth.POST("/info", append(_updateuserinfoMw(), api.UpdateUserInfo)...)
 		_auth.POST("/login", append(_loginMw(), api.Login)...)
 	}
-	root.GET("/profile", append(_profileMw(), api.GetProfile)...)
-	_profile := root.Group("/profile", _profileMw()...)
-	_profile.POST("/photo", append(_createprofilephotoMw(), api.CreateProfilePhoto)...)
-	_profile.DELETE("/photo", append(_clearprofilephotoMw(), api.ClearProfilePhoto)...)
-	_profile.GET("/photo", append(_photoMw(), api.GetProfilePhoto)...)
-	_photo := _profile.Group("/photo", _photoMw()...)
-	_photo.POST("/complete", append(_completeprofilephotoMw(), api.CompleteProfilePhoto)...)
-	root.POST("/trip", append(_tripMw(), api.CreateTrip)...)
-	_trip := root.Group("/trip", _tripMw()...)
-	_trip.GET("/:id", append(_gettripMw(), api.GetTrip)...)
-	_trip.PUT("/:id", append(_updatetripMw(), api.UpdateTrip)...)
 }
