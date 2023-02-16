@@ -2,6 +2,9 @@
 
 ## api => API_GROUP
 
+> dataid => api
+> group => API_GROUP
+
 ```json
 {
   "name": "api",
@@ -20,6 +23,9 @@
 ```
 
 ## auth_srv => AUTH_GROUP
+
+> dataid => auth_srv
+> group => AUTH_GROUP
 
 ```json
 {
