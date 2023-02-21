@@ -6,16 +6,19 @@ import (
 	"fmt"
 
 	"github.com/cloudwego/hertz/pkg/app/server"
+	"github.com/cloudwego/hertz/pkg/common/hlog"
 	hertztracing "github.com/hertz-contrib/obs-opentelemetry/tracing"
 	"github.com/hertz-contrib/pprof"
+
 	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/server/cmd/api/global"
 	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/server/cmd/api/initialize"
 	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/server/cmd/api/initialize/rpc"
+	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/server/pkg/log"
 )
 
 func main() {
 	// initialize
-	initialize.InitLogger()
+	log.InitHLogger(hlog.LevelDebug)
 	r, info := initialize.InitNacos()
 	tracer, cfg := hertztracing.NewServerTracer()
 	rpc.Init()

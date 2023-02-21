@@ -10,19 +10,22 @@ import (
 	"github.com/cloudwego/kitex/pkg/rpcinfo"
 	"github.com/cloudwego/kitex/pkg/utils"
 	"github.com/cloudwego/kitex/server"
+
 	auth "github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/kitex_gen/auth/authservice"
 	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/pkg/consts"
 	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/pkg/middleware"
 	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/server/cmd/auth/global"
 	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/server/cmd/auth/initialize"
 	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/server/cmd/auth/tool"
+	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/server/pkg/log"
+
 	"github.com/kitex-contrib/obs-opentelemetry/provider"
 	"github.com/kitex-contrib/obs-opentelemetry/tracing"
 )
 
 func main() {
 	// initialization
-	initialize.InitLogger()
+	log.InitKLogger(klog.LevelDebug)
 	IP, Port := initialize.InitFlag()
 	r, info := initialize.InitNacos(Port)
 	initialize.InitDB()

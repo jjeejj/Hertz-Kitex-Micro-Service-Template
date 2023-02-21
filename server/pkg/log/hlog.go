@@ -1,21 +1,21 @@
-package initialize
+package log
 
 import (
 	"os"
 	"path"
 	"time"
 
-	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/pkg/consts"
-
-	"github.com/cloudwego/kitex/pkg/klog"
-	kitexlogrus "github.com/kitex-contrib/obs-opentelemetry/logging/logrus"
+	"github.com/cloudwego/hertz/pkg/common/hlog"
+	hertzlogrus "github.com/hertz-contrib/obs-opentelemetry/logging/logrus"
 	"gopkg.in/natefinch/lumberjack.v2"
+
+	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/pkg/consts"
 )
 
-// InitLogger to init logrus
-func InitLogger() {
+// InitHLogger to init logrus
+func InitHLogger(level hlog.Level) {
 	// Customizable output directory.
-	logFilePath := consts.KlogFilePath
+	logFilePath := consts.HlogFilePath
 	if err := os.MkdirAll(logFilePath, 0o777); err != nil {
 		panic(err)
 	}
@@ -29,7 +29,7 @@ func InitLogger() {
 		}
 	}
 
-	logger := kitexlogrus.NewLogger()
+	logger := hertzlogrus.NewLogger()
 	// Provides compression and deletion
 	lumberjackLogger := &lumberjack.Logger{
 		Filename:   fileName,
@@ -40,7 +40,7 @@ func InitLogger() {
 	}
 
 	logger.SetOutput(lumberjackLogger)
-	logger.SetLevel(klog.LevelDebug)
+	logger.SetLevel(level)
 
-	klog.SetLogger(logger)
+	hlog.SetLogger(logger)
 }
