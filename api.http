@@ -1,0 +1,13 @@
+# 登录
+POST http://localhost:8840/auth/login
+Content-Type: application/json
+
+{
+  "code": "1111"
+}
+
+###
+GET http://localhost:8840/auth/info
+Accept: application/json
+
+
