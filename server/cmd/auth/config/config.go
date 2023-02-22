@@ -24,14 +24,9 @@ type WXConfig struct {
 }
 
 type ServerConfig struct {
-	Name        string        `mapstructure:"name" json:"name"`
-	Host        string        `mapstructure:"host" json:"host"`
-	MysqlInfo   mysql.Config  `mapstructure:"mysql" json:"mysql"`
-	OtelInfo    OtelConfig    `mapstructure:"otel" json:"otel"`
-	WXInfo      WXConfig      `mapstructure:"wx_config" json:"wx_config"`
-	BlobSrvInfo BlobSrvConfig `mapstructure:"blob_srv" json:"blob_srv"`
-}
-
-type BlobSrvConfig struct {
-	Name string `mapstructure:"name" json:"name"`
+	Name      string       `mapstructure:"name" json:"name"`
+	Host      string       `mapstructure:"host" json:"host"`
+	MysqlInfo mysql.Config `mapstructure:"mysql" json:"mysql"`
+	OtelInfo  OtelConfig   `mapstructure:"otel" json:"otel"`
+	WXInfo    WXConfig     `mapstructure:"wx_config" json:"wx_config"`
 }
