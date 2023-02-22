@@ -2,18 +2,20 @@ package initialize
 
 import (
 	"fmt"
+	"strings"
 	"time"
 
 	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/pkg/consts"
 
 	"github.com/cloudwego/kitex/pkg/klog"
-	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/server/cmd/auth/global"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 	"gorm.io/gorm/schema"
 	"gorm.io/plugin/opentelemetry/logging/logrus"
 	"gorm.io/plugin/opentelemetry/tracing"
+
+	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/server/cmd/auth/global"
 )
 
 // InitDB to init database
@@ -34,11 +36,12 @@ func InitDB() {
 	global.DB, err = gorm.Open(mysql.Open(dsn), &gorm.Config{
 		NamingStrategy: schema.NamingStrategy{
 			SingularTable: true,
+			NameReplacer:  strings.NewReplacer("model_", ""),
 		},
 		Logger: newLogger,
 	})
 	if err != nil {
-		klog.Fatalf("init gorm failed: %s", err.Error())
+		klog.Fatalf("init mysql failed: %s", err.Error())
 	}
 	if err := global.DB.Use(tracing.NewPlugin()); err != nil {
 		klog.Fatalf("use tracing plugin failed: %s", err.Error())

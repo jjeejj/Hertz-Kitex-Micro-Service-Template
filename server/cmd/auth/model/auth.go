@@ -7,11 +7,11 @@ import (
 )
 
 type User struct {
-	ID           int64 `gorm:"primarykey"`
+	ID           int64 `mysql:"primarykey"`
 	PhoneNumber  int64
 	AvatarBlobId int64
-	Username     string `gorm:"type:varchar(40)"`
-	OpenID       string `gorm:"column:openid;type:varchar(100);not null"`
+	Username     string `mysql:"type:varchar(40)"`
+	OpenID       string `mysql:"column:openid;type:varchar(100);not null"`
 }
 
 // BeforeCreate uses snowflake to generate an ID.
