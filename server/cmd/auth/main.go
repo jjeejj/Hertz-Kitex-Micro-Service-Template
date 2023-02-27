@@ -8,26 +8,27 @@ import (
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/cloudwego/kitex/pkg/limit"
 	"github.com/cloudwego/kitex/pkg/rpcinfo"
+	"github.com/cloudwego/kitex/pkg/transmeta"
 	"github.com/cloudwego/kitex/pkg/utils"
 	"github.com/cloudwego/kitex/server"
 
+	"github.com/kitex-contrib/obs-opentelemetry/provider"
+	"github.com/kitex-contrib/obs-opentelemetry/tracing"
+
 	auth "github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/kitex_gen/auth/authservice"
 	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/pkg/consts"
+	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/pkg/log"
 	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/pkg/middleware"
 	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/server/cmd/auth/global"
 	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/server/cmd/auth/initialize"
 	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/server/cmd/auth/tool"
-	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/server/pkg/log"
-
-	"github.com/kitex-contrib/obs-opentelemetry/provider"
-	"github.com/kitex-contrib/obs-opentelemetry/tracing"
 )
 
 func main() {
 	// initialization
-	log.InitKLogger(klog.LevelDebug)
 	IP, Port := initialize.InitFlag()
 	r, info := initialize.InitNacos(Port)
+	log.InitKLogger(consts.KlogFilePath, global.ServerConfig.LogLevel)
 	initialize.InitDB()
 	p := provider.NewOpenTelemetryProvider(
 		provider.WithServiceName(global.ServerConfig.Name),
@@ -51,6 +52,7 @@ func main() {
 		server.WithMiddleware(middleware.ServerMiddleware),
 		server.WithSuite(tracing.NewServerSuite()),
 		server.WithServerBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: global.ServerConfig.Name}),
+		server.WithMetaHandler(transmeta.ServerTTHeaderHandler),
 	)
 
 	err := srv.Run()
