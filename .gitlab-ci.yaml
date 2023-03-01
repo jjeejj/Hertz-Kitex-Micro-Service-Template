@@ -1,0 +1,50 @@
+stages:
+  - preInstall
+  - install
+  - build
+  - deploy
+
+variables:
+  TARGETDIR: /usr/share/nginx/html/group-runner-project
+
+cache:
+  paths:
+    - node_modules
+    - dist
+
+preInstall-job:
+  stage: preInstall
+  only:
+    refs:
+      - main
+    changes:
+      - package.json
+  script:
+    - npm install
+    - echo "pre-install success"
+
+install-job:
+  stage: install
+  only:
+    - main
+  script:
+    - npm install
+    - echo "install success"
+
+build-job:
+  stage: build
+  only:
+    - main
+  script:
+    - npm run build
+    - echo "build success"
+
+deploy-job:
+  stage: deploy
+  only:
+    - main
+  before_script:
+  script:
+    - sshpass -p $PASSWORD scp -o StrictHostKeyChecking=no -r ./dist/* $USER@$HOST:$TARGETDIR
+  after_script:
+    - echo "deploy success"
