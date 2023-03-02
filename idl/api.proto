@@ -33,8 +33,8 @@ message UpdateUserResponse{
 }
 
 
-service apiService {
-  rpc Login (LoginRequest) returns (LoginResponse) {option (api.post) = "/auth/login";}
-  rpc GetUserInfo (GetUserInfoRequest) returns (UserInfo) {option (api.get) = "/auth/info";}
-  rpc UpdateUserInfo (UpdateUserRequest) returns (UpdateUserResponse)  {option (api.post) = "/auth/info";}
+service ApiAuthService {
+  rpc Login (LoginRequest) returns (LoginResponse) {option (api.post) = "/auth/Login";}
+  rpc GetUserInfo (GetUserInfoRequest) returns (UserInfo) {option (api.get) = "/auth/GetUserInfo";}
+  rpc UpdateUserInfo (UpdateUserRequest) returns (UpdateUserResponse)  {option (api.post) = "/auth/UpdateUserInfo";}
 }
