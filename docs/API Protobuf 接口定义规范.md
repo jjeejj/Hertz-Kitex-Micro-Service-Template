@@ -15,7 +15,7 @@ service apiPostService {
 }
 ```
 
-- service 名称的命名为： api[模块]service
+- service 名称的命名为： Api[模块]service
 - rpc 方法 名称定义 一定要语意化
 - rpc 对应 方法 统一为的 **api.post**
 - api.post 定义的path 规则为：/[模块]/[rpc 方法]
