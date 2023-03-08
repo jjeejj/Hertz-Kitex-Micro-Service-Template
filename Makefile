@@ -22,3 +22,7 @@ auth:
 .PHONY: api
 api:
 	go run ./server/cmd/api
+
+# gen kitex rpc client
+gen_client:
+	kitex
