@@ -4,15 +4,60 @@ package oss
 
 import (
 	"context"
+	"database/sql"
+	"database/sql/driver"
 	"fmt"
 	"github.com/apache/thrift/lib/go/thrift"
 	"strings"
 )
 
+type OssType int64
+
+const (
+	OssType_MINIO   OssType = 1
+	OssType_ALI_YUN OssType = 2
+)
+
+func (p OssType) String() string {
+	switch p {
+	case OssType_MINIO:
+		return "MINIO"
+	case OssType_ALI_YUN:
+		return "ALI_YUN"
+	}
+	return "<UNSET>"
+}
+
+func OssTypeFromString(s string) (OssType, error) {
+	switch s {
+	case "MINIO":
+		return OssType_MINIO, nil
+	case "ALI_YUN":
+		return OssType_ALI_YUN, nil
+	}
+	return OssType(0), fmt.Errorf("not a valid OssType string")
+}
+
+func OssTypePtr(v OssType) *OssType { return &v }
+func (p *OssType) Scan(value interface{}) (err error) {
+	var result sql.NullInt64
+	err = result.Scan(value)
+	*p = OssType(result.Int64)
+	return
+}
+
+func (p *OssType) Value() (driver.Value, error) {
+	if p == nil {
+		return nil, nil
+	}
+	return int64(*p), nil
+}
+
 type PreSignedPutObjectUrlReq struct {
-	BucketName string `thrift:"bucket_name,1" frugal:"1,default,string" json:"bucket_name"`
-	ObjectName string `thrift:"object_name,2" frugal:"2,default,string" json:"object_name"`
-	Expiry     int32  `thrift:"expiry,3" frugal:"3,default,i32" json:"expiry"`
+	BucketName string  `thrift:"bucket_name,1" frugal:"1,default,string" json:"bucket_name"`
+	ObjectName string  `thrift:"object_name,2" frugal:"2,default,string" json:"object_name"`
+	Expiry     int32   `thrift:"expiry,3" frugal:"3,default,i32" json:"expiry"`
+	Type       OssType `thrift:"type,4" frugal:"4,default,OssType" json:"type"`
 }
 
 func NewPreSignedPutObjectUrlReq() *PreSignedPutObjectUrlReq {
@@ -34,6 +79,10 @@ func (p *PreSignedPutObjectUrlReq) GetObjectName() (v string) {
 func (p *PreSignedPutObjectUrlReq) GetExpiry() (v int32) {
 	return p.Expiry
 }
+
+func (p *PreSignedPutObjectUrlReq) GetType() (v OssType) {
+	return p.Type
+}
 func (p *PreSignedPutObjectUrlReq) SetBucketName(val string) {
 	p.BucketName = val
 }
@@ -43,11 +92,15 @@ func (p *PreSignedPutObjectUrlReq) SetObjectName(val string) {
 func (p *PreSignedPutObjectUrlReq) SetExpiry(val int32) {
 	p.Expiry = val
 }
+func (p *PreSignedPutObjectUrlReq) SetType(val OssType) {
+	p.Type = val
+}
 
 var fieldIDToName_PreSignedPutObjectUrlReq = map[int16]string{
 	1: "bucket_name",
 	2: "object_name",
 	3: "expiry",
+	4: "type",
 }
 
 func (p *PreSignedPutObjectUrlReq) Read(iprot thrift.TProtocol) (err error) {
@@ -92,6 +145,16 @@ func (p *PreSignedPutObjectUrlReq) Read(iprot thrift.TProtocol) (err error) {
 		case 3:
 			if fieldTypeId == thrift.I32 {
 				if err = p.ReadField3(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		case 4:
+			if fieldTypeId == thrift.I32 {
+				if err = p.ReadField4(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else {
@@ -156,6 +219,15 @@ func (p *PreSignedPutObjectUrlReq) ReadField3(iprot thrift.TProtocol) error {
 	return nil
 }
 
+func (p *PreSignedPutObjectUrlReq) ReadField4(iprot thrift.TProtocol) error {
+	if v, err := iprot.ReadI32(); err != nil {
+		return err
+	} else {
+		p.Type = OssType(v)
+	}
+	return nil
+}
+
 func (p *PreSignedPutObjectUrlReq) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
 	if err = oprot.WriteStructBegin("PreSignedPutObjectUrlReq"); err != nil {
@@ -172,6 +244,10 @@ func (p *PreSignedPutObjectUrlReq) Write(oprot thrift.TProtocol) (err error) {
 		}
 		if err = p.writeField3(oprot); err != nil {
 			fieldId = 3
+			goto WriteFieldError
+		}
+		if err = p.writeField4(oprot); err != nil {
+			fieldId = 4
 			goto WriteFieldError
 		}
 
@@ -244,6 +320,23 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
 }
 
+func (p *PreSignedPutObjectUrlReq) writeField4(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("type", thrift.I32, 4); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI32(int32(p.Type)); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 4 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 4 end error: ", p), err)
+}
+
 func (p *PreSignedPutObjectUrlReq) String() string {
 	if p == nil {
 		return "<nil>"
@@ -266,6 +359,9 @@ func (p *PreSignedPutObjectUrlReq) DeepEqual(ano *PreSignedPutObjectUrlReq) bool
 	if !p.Field3DeepEqual(ano.Expiry) {
 		return false
 	}
+	if !p.Field4DeepEqual(ano.Type) {
+		return false
+	}
 	return true
 }
 
@@ -286,6 +382,13 @@ func (p *PreSignedPutObjectUrlReq) Field2DeepEqual(src string) bool {
 func (p *PreSignedPutObjectUrlReq) Field3DeepEqual(src int32) bool {
 
 	if p.Expiry != src {
+		return false
+	}
+	return true
+}
+func (p *PreSignedPutObjectUrlReq) Field4DeepEqual(src OssType) bool {
+
+	if p.Type != src {
 		return false
 	}
 	return true

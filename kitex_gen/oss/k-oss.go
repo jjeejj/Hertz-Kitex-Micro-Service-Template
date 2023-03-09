@@ -87,6 +87,20 @@ func (p *PreSignedPutObjectUrlReq) FastRead(buf []byte) (int, error) {
 					goto SkipFieldError
 				}
 			}
+		case 4:
+			if fieldTypeId == thrift.I32 {
+				l, err = p.FastReadField4(buf[offset:])
+				offset += l
+				if err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				l, err = bthrift.Binary.Skip(buf[offset:], fieldTypeId)
+				offset += l
+				if err != nil {
+					goto SkipFieldError
+				}
+			}
 		default:
 			l, err = bthrift.Binary.Skip(buf[offset:], fieldTypeId)
 			offset += l
@@ -164,6 +178,20 @@ func (p *PreSignedPutObjectUrlReq) FastReadField3(buf []byte) (int, error) {
 	return offset, nil
 }
 
+func (p *PreSignedPutObjectUrlReq) FastReadField4(buf []byte) (int, error) {
+	offset := 0
+
+	if v, l, err := bthrift.Binary.ReadI32(buf[offset:]); err != nil {
+		return offset, err
+	} else {
+		offset += l
+
+		p.Type = OssType(v)
+
+	}
+	return offset, nil
+}
+
 // for compatibility
 func (p *PreSignedPutObjectUrlReq) FastWrite(buf []byte) int {
 	return 0
@@ -176,6 +204,7 @@ func (p *PreSignedPutObjectUrlReq) FastWriteNocopy(buf []byte, binaryWriter bthr
 		offset += p.fastWriteField3(buf[offset:], binaryWriter)
 		offset += p.fastWriteField1(buf[offset:], binaryWriter)
 		offset += p.fastWriteField2(buf[offset:], binaryWriter)
+		offset += p.fastWriteField4(buf[offset:], binaryWriter)
 	}
 	offset += bthrift.Binary.WriteFieldStop(buf[offset:])
 	offset += bthrift.Binary.WriteStructEnd(buf[offset:])
@@ -189,6 +218,7 @@ func (p *PreSignedPutObjectUrlReq) BLength() int {
 		l += p.field1Length()
 		l += p.field2Length()
 		l += p.field3Length()
+		l += p.field4Length()
 	}
 	l += bthrift.Binary.FieldStopLength()
 	l += bthrift.Binary.StructEndLength()
@@ -222,6 +252,15 @@ func (p *PreSignedPutObjectUrlReq) fastWriteField3(buf []byte, binaryWriter bthr
 	return offset
 }
 
+func (p *PreSignedPutObjectUrlReq) fastWriteField4(buf []byte, binaryWriter bthrift.BinaryWriter) int {
+	offset := 0
+	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "type", thrift.I32, 4)
+	offset += bthrift.Binary.WriteI32(buf[offset:], int32(p.Type))
+
+	offset += bthrift.Binary.WriteFieldEnd(buf[offset:])
+	return offset
+}
+
 func (p *PreSignedPutObjectUrlReq) field1Length() int {
 	l := 0
 	l += bthrift.Binary.FieldBeginLength("bucket_name", thrift.STRING, 1)
@@ -244,6 +283,15 @@ func (p *PreSignedPutObjectUrlReq) field3Length() int {
 	l := 0
 	l += bthrift.Binary.FieldBeginLength("expiry", thrift.I32, 3)
 	l += bthrift.Binary.I32Length(p.Expiry)
+
+	l += bthrift.Binary.FieldEndLength()
+	return l
+}
+
+func (p *PreSignedPutObjectUrlReq) field4Length() int {
+	l := 0
+	l += bthrift.Binary.FieldBeginLength("type", thrift.I32, 4)
+	l += bthrift.Binary.I32Length(int32(p.Type))
 
 	l += bthrift.Binary.FieldEndLength()
 	return l

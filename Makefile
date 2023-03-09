@@ -24,5 +24,9 @@ api:
 	go run ./server/cmd/api
 
 # gen kitex rpc client
-gen_client:
-	kitex
+#gen_client:
+#	kitex
+
+.PHONY: oss
+oss:
+	go run ./server/cmd/oss
