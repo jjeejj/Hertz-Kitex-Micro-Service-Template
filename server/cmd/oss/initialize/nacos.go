@@ -76,7 +76,7 @@ func InitNacos(Port int) (registry.Registry, *registry.Info) {
 		},
 	)
 
-	r := nacos.NewNacosRegistry(registryClient, nacos.WithGroup(consts.OssGroup))
+	r := nacos.NewNacosRegistry(registryClient, nacos.WithGroup(global.NacosConfig.Group))
 
 	sf, err := snowflake.NewNode(2)
 	if err != nil {

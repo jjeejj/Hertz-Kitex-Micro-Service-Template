@@ -10,12 +10,13 @@ import (
 	"github.com/cloudwego/hertz/pkg/common/hlog"
 	"github.com/cloudwego/hertz/pkg/common/utils"
 	"github.com/hertz-contrib/registry/nacos"
-	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/pkg/consts"
-	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/server/cmd/api/global"
 	"github.com/nacos-group/nacos-sdk-go/clients"
 	"github.com/nacos-group/nacos-sdk-go/common/constant"
 	"github.com/nacos-group/nacos-sdk-go/vo"
 	"github.com/spf13/viper"
+
+	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/pkg/consts"
+	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/server/cmd/api/global"
 )
 
 // InitNacos to init nacos
@@ -75,7 +76,7 @@ func InitNacos() (registry.Registry, *registry.Info) {
 		},
 	)
 
-	r := nacos.NewNacosRegistry(registryClient, nacos.WithRegistryGroup(consts.ApiGroup))
+	r := nacos.NewNacosRegistry(registryClient, nacos.WithRegistryGroup(global.NacosConfig.Group))
 
 	sf, err := snowflake.NewNode(2)
 	if err != nil {

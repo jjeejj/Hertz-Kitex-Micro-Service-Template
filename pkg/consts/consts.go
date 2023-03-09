@@ -6,13 +6,10 @@ const (
 	AccountID  = "accountID"
 	ID         = "id"
 
-	ApiConfigPath  = "./server/cmd/api/config.yaml"
-	AuthConfigPath = "./server/cmd/auth/config.yaml"
-	OssConfigPath  = "./server/cmd/oss/config.yaml"
+	ApiConfigPath = "./server/cmd/api/config.yaml"
+	OssConfigPath = "./server/cmd/oss/config.yaml"
 
-	ApiGroup  = "API_GROUP"
 	AuthGroup = "AUTH_GROUP"
-	OssGroup  = "OSS_GROUP"
 
 	NacosLogDir   = "tmp/nacos/log"
 	NacosCacheDir = "tmp/nacos/cache"
@@ -35,9 +32,4 @@ const (
 	TCP = "tcp"
 
 	FreePortAddress = "localhost:0"
-
-	DefaultLicNumber = "100000000001"
-	DefaultName      = "FreeCar"
-	DefaultGender    = 1
-	DefaultBirth     = 631152000000
 )
