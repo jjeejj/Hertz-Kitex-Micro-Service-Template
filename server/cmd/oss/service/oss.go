@@ -16,14 +16,14 @@ type Oss interface {
 }
 
 // GetOssImpl 获取 对应的 oss 的实现
-func GetOssImpl(ossType oss.OssType) (Oss, error) {
+func GetOssImpl(ossType oss.OssPlatformType) (Oss, error) {
 	var ossClient Oss
 	switch ossType {
-	case oss.OssType_MINIO:
+	case oss.OssPlatformType_MINIO:
 		ossClient = &minio.Minio{
 			Client: global.MinioClient,
 		}
-	case oss.OssType_ALI_YUN:
+	case oss.OssPlatformType_ALI_YUN:
 	default:
 		klog.Warnf("not support oss type: %v", ossType)
 		return nil, errors.New("not support oss type")

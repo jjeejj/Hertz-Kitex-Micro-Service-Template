@@ -4,10 +4,9 @@ import (
 	"flag"
 
 	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/pkg/consts"
+	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/pkg/utils"
 
 	"github.com/cloudwego/kitex/pkg/klog"
-
-	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/server/cmd/auth/tool"
 )
 
 // InitFlag to init flag
@@ -17,7 +16,7 @@ func InitFlag() (string, int) {
 	// Parsing flags and if Port is 0 , then will automatically get an empty Port.
 	flag.Parse()
 	if *Port == 0 {
-		*Port, _ = tool.GetFreePort()
+		*Port, _ = utils.GetFreePort()
 	}
 	klog.Info("ip: ", *IP)
 	klog.Info("port: ", *Port)

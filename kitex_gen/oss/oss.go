@@ -11,42 +11,42 @@ import (
 	"strings"
 )
 
-type OssType int64
+type OssPlatformType int64
 
 const (
-	OssType_MINIO   OssType = 1
-	OssType_ALI_YUN OssType = 2
+	OssPlatformType_MINIO   OssPlatformType = 1
+	OssPlatformType_ALI_YUN OssPlatformType = 2
 )
 
-func (p OssType) String() string {
+func (p OssPlatformType) String() string {
 	switch p {
-	case OssType_MINIO:
+	case OssPlatformType_MINIO:
 		return "MINIO"
-	case OssType_ALI_YUN:
+	case OssPlatformType_ALI_YUN:
 		return "ALI_YUN"
 	}
 	return "<UNSET>"
 }
 
-func OssTypeFromString(s string) (OssType, error) {
+func OssPlatformTypeFromString(s string) (OssPlatformType, error) {
 	switch s {
 	case "MINIO":
-		return OssType_MINIO, nil
+		return OssPlatformType_MINIO, nil
 	case "ALI_YUN":
-		return OssType_ALI_YUN, nil
+		return OssPlatformType_ALI_YUN, nil
 	}
-	return OssType(0), fmt.Errorf("not a valid OssType string")
+	return OssPlatformType(0), fmt.Errorf("not a valid OssPlatformType string")
 }
 
-func OssTypePtr(v OssType) *OssType { return &v }
-func (p *OssType) Scan(value interface{}) (err error) {
+func OssPlatformTypePtr(v OssPlatformType) *OssPlatformType { return &v }
+func (p *OssPlatformType) Scan(value interface{}) (err error) {
 	var result sql.NullInt64
 	err = result.Scan(value)
-	*p = OssType(result.Int64)
+	*p = OssPlatformType(result.Int64)
 	return
 }
 
-func (p *OssType) Value() (driver.Value, error) {
+func (p *OssPlatformType) Value() (driver.Value, error) {
 	if p == nil {
 		return nil, nil
 	}
@@ -54,10 +54,10 @@ func (p *OssType) Value() (driver.Value, error) {
 }
 
 type PreSignedPutObjectUrlReq struct {
-	BucketName string  `thrift:"bucket_name,1" frugal:"1,default,string" json:"bucket_name"`
-	ObjectName string  `thrift:"object_name,2" frugal:"2,default,string" json:"object_name"`
-	Expiry     int32   `thrift:"expiry,3" frugal:"3,default,i32" json:"expiry"`
-	Type       OssType `thrift:"type,4" frugal:"4,default,OssType" json:"type"`
+	BucketName string          `thrift:"bucket_name,1" frugal:"1,default,string" json:"bucket_name"`
+	ObjectName string          `thrift:"object_name,2" frugal:"2,default,string" json:"object_name"`
+	Expiry     int32           `thrift:"expiry,3" frugal:"3,default,i32" json:"expiry"`
+	Type       OssPlatformType `thrift:"type,4" frugal:"4,default,OssPlatformType" json:"type"`
 }
 
 func NewPreSignedPutObjectUrlReq() *PreSignedPutObjectUrlReq {
@@ -80,7 +80,7 @@ func (p *PreSignedPutObjectUrlReq) GetExpiry() (v int32) {
 	return p.Expiry
 }
 
-func (p *PreSignedPutObjectUrlReq) GetType() (v OssType) {
+func (p *PreSignedPutObjectUrlReq) GetType() (v OssPlatformType) {
 	return p.Type
 }
 func (p *PreSignedPutObjectUrlReq) SetBucketName(val string) {
@@ -92,7 +92,7 @@ func (p *PreSignedPutObjectUrlReq) SetObjectName(val string) {
 func (p *PreSignedPutObjectUrlReq) SetExpiry(val int32) {
 	p.Expiry = val
 }
-func (p *PreSignedPutObjectUrlReq) SetType(val OssType) {
+func (p *PreSignedPutObjectUrlReq) SetType(val OssPlatformType) {
 	p.Type = val
 }
 
@@ -223,7 +223,7 @@ func (p *PreSignedPutObjectUrlReq) ReadField4(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadI32(); err != nil {
 		return err
 	} else {
-		p.Type = OssType(v)
+		p.Type = OssPlatformType(v)
 	}
 	return nil
 }
@@ -386,7 +386,7 @@ func (p *PreSignedPutObjectUrlReq) Field3DeepEqual(src int32) bool {
 	}
 	return true
 }
-func (p *PreSignedPutObjectUrlReq) Field4DeepEqual(src OssType) bool {
+func (p *PreSignedPutObjectUrlReq) Field4DeepEqual(src OssPlatformType) bool {
 
 	if p.Type != src {
 		return false

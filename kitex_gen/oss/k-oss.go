@@ -186,7 +186,7 @@ func (p *PreSignedPutObjectUrlReq) FastReadField4(buf []byte) (int, error) {
 	} else {
 		offset += l
 
-		p.Type = OssType(v)
+		p.Type = OssPlatformType(v)
 
 	}
 	return offset, nil
