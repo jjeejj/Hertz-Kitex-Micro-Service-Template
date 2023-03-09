@@ -16,15 +16,20 @@ Hertz ， Kitex 微服务模版
 
 ## 服务说明
 
+### API 服务
+
+提供对外部的接口
+
 ### OSS 对象服务
 
-提供媒体资源上传获取的服务，只提供 rpc 接口供其他服务调用
+提供媒体资源上传获取的服务，只提供 rpc 接口供其他内部 RPC 服务调用
 
 支持的存储类型：
-1. Minio
-2.
+1. Minio  ✅
+2. 阿里云  ❌
 
 ## 代码生成
 
-kitex  -thrift frugal_tag -module github.com/jjeejj/Hertz-Kitex-Micro-Service-Template ./idl/oss.thrift
-kitex  -thrift frugal_tag -service oss -module github.com/jjeejj/Hertz-Kitex-Micro-Service-Template  -use github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/kitex_gen ../../../idl/oss.thrift
+客户端：`kitex  -thrift frugal_tag -module github.com/jjeejj/Hertz-Kitex-Micro-Service-Template ./idl/oss.thrift`
+
+服务端：`kitex  -thrift frugal_tag -service oss -module github.com/jjeejj/Hertz-Kitex-Micro-Service-Template  -use github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/kitex_gen ../../../idl/oss.thrift`
