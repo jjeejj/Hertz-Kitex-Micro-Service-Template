@@ -23,8 +23,7 @@ import (
 
 func main() {
 	// initialization
-	IP, Port := initialize.InitFlag()
-	r, info := initialize.InitNacos(Port)
+	r, info := initialize.InitNacos()
 	log.InitKLogger(consts.KlogFilePath, global.ServerConfig.LogLevel)
 	initialize.InitDB()
 
@@ -33,7 +32,7 @@ func main() {
 
 	// Create new server.
 	srv := oss.NewServer(new(OssServiceImpl),
-		server.WithServiceAddr(utils.NewNetAddr(consts.TCP, net.JoinHostPort(IP, strconv.Itoa(Port)))),
+		server.WithServiceAddr(utils.NewNetAddr(consts.TCP, net.JoinHostPort(global.ServerConfig.Host, strconv.Itoa(global.ServerConfig.Port)))),
 		server.WithRegistry(r),
 		server.WithRegistryInfo(info),
 		server.WithLimit(&limit.Option{MaxConnections: 2000, MaxQPS: 500}),

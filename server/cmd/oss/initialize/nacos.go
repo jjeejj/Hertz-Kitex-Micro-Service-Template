@@ -15,12 +15,14 @@ import (
 	"github.com/nacos-group/nacos-sdk-go/vo"
 	"github.com/spf13/viper"
 
+	pkgutils "github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/pkg/utils"
+
 	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/pkg/consts"
 	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/server/cmd/oss/global"
 )
 
 // InitNacos to init nacos
-func InitNacos(Port int) (registry.Registry, *registry.Info) {
+func InitNacos() (registry.Registry, *registry.Info) {
 	v := viper.New()
 	v.SetConfigFile(consts.OssConfigPath)
 	if err := v.ReadInConfig(); err != nil {
@@ -82,9 +84,12 @@ func InitNacos(Port int) (registry.Registry, *registry.Info) {
 	if err != nil {
 		klog.Fatalf("generate service name failed: %s", err.Error())
 	}
+	if global.ServerConfig.Port == 0 {
+		global.ServerConfig.Port, _ = pkgutils.GetFreePort()
+	}
 	info := &registry.Info{
 		ServiceName: global.ServerConfig.Name,
-		Addr:        utils.NewNetAddr(consts.TCP, net.JoinHostPort(global.ServerConfig.Host, strconv.Itoa(Port))),
+		Addr:        utils.NewNetAddr(consts.TCP, net.JoinHostPort(global.ServerConfig.Host, strconv.Itoa(global.ServerConfig.Port))),
 		Tags: map[string]string{
 			"ID": sf.Generate().Base36(),
 		},

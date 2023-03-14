@@ -18,6 +18,7 @@ type NacosConfig struct {
 // ServerConfig 服务配置信息
 type ServerConfig struct {
 	Name      string       `mapstructure:"name" json:"name"`
+	Port      int          `mapstructure:"port" json:"port"`
 	Host      string       `mapstructure:"host" json:"host"`
 	LogLevel  string       `mapstructure:"log_level" json:"log_level"`
 	MysqlInfo mysql.Config `mapstructure:"mysql" json:"mysql"`
