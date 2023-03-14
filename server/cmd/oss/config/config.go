@@ -4,17 +4,6 @@ import (
 	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/server/pkg/mysql"
 )
 
-// NacosConfig 配置中心地址
-type NacosConfig struct {
-	Host      string `mapstructure:"host"`
-	Port      uint64 `mapstructure:"port"`
-	Namespace string `mapstructure:"namespace"`
-	User      string `mapstructure:"user"`
-	Password  string `mapstructure:"password"`
-	DataId    string `mapstructure:"dataid"`
-	Group     string `mapstructure:"group"`
-}
-
 // ServerConfig 服务配置信息
 type ServerConfig struct {
 	Name      string       `mapstructure:"name" json:"name"`

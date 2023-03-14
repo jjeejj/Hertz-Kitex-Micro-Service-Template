@@ -1,0 +1,20 @@
+# 不同配置环境的 nacos 配置信息
+dev:
+    host: 127.0.0.1
+    port: 8848
+    namespace: 6e815bb4-25d0-4155-a1e0-6ec17a7ee600
+    user: 'nacos'
+    password: 'nacos'
+test:
+    host: 127.0.0.1
+    port: 8848
+    namespace: 6e815bb4-25d0-4155-a1e0-6ec17a7ee600
+    user: 'nacos'
+    password: 'nacos'
+prod:
+    host: 127.0.0.1
+    port: 8848
+    namespace: 6e815bb4-25d0-4155-a1e0-6ec17a7ee600
+    user: 'nacos'
+    password: 'nacos'
+
