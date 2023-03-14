@@ -6,7 +6,6 @@ const (
 	AccountID  = "accountID"
 	ID         = "id"
 
-	ApiConfigPath   = "./server/cmd/api/config.yaml"
 	OssConfigPath   = "./server/cmd/oss/config.yaml"
 	NacosConfigPath = "./config/nacos_config.yaml"
 
@@ -47,4 +46,7 @@ const (
 const (
 	OssGroup  = "OSS_GROUP"
 	OssDataId = "oss_srv"
+
+	ApiGroup  = "API_GROUP"
+	ApiDataId = "api"
 )

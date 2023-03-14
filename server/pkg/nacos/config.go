@@ -14,6 +14,6 @@ type ConfigInfo struct {
 	Namespace string `mapstructure:"namespace"`
 	User      string `mapstructure:"user"`
 	Password  string `mapstructure:"password"`
-	// DataId    string `mapstructure:"dataid"`
-	// Group     string `mapstructure:"group"`
+	DataId    string `mapstructure:"dataid"`
+	Group     string `mapstructure:"group"`
 }

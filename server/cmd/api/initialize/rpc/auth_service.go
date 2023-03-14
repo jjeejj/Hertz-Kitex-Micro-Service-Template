@@ -5,43 +5,19 @@ import (
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/cloudwego/kitex/pkg/loadbalance"
 	"github.com/cloudwego/kitex/pkg/rpcinfo"
+	"github.com/kitex-contrib/obs-opentelemetry/provider"
+	"github.com/kitex-contrib/obs-opentelemetry/tracing"
+
 	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/kitex_gen/auth/authservice"
 	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/pkg/consts"
 	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/pkg/middleware"
 	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/server/cmd/api/global"
-	"github.com/kitex-contrib/obs-opentelemetry/provider"
-	"github.com/kitex-contrib/obs-opentelemetry/tracing"
-	nacos "github.com/kitex-contrib/registry-nacos/resolver"
-	"github.com/nacos-group/nacos-sdk-go/clients"
-	"github.com/nacos-group/nacos-sdk-go/common/constant"
-	"github.com/nacos-group/nacos-sdk-go/vo"
+	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/server/pkg/nacos"
 )
 
 func initAuth() {
 	// init resolver
-	// Read configuration information from nacos
-	sc := []constant.ServerConfig{
-		{
-			IpAddr: global.NacosConfig.Host,
-			Port:   global.NacosConfig.Port,
-		},
-	}
-
-	cc := constant.ClientConfig{
-		NamespaceId:         global.NacosConfig.Namespace,
-		TimeoutMs:           5000,
-		NotLoadCacheAtStart: true,
-		LogDir:              consts.NacosLogDir,
-		CacheDir:            consts.NacosCacheDir,
-		LogLevel:            consts.NacosLogLevel,
-	}
-
-	nacosCli, err := clients.NewNamingClient(
-		vo.NacosClientParam{
-			ClientConfig:  &cc,
-			ServerConfigs: sc,
-		})
-	r := nacos.NewNacosResolver(nacosCli, nacos.WithGroup(consts.AuthGroup))
+	r, err := nacos.GetKResolve(consts.OssGroup)
 	if err != nil {
 		klog.Fatalf("new consul client failed: %s", err.Error())
 	}

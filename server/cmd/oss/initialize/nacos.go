@@ -14,7 +14,7 @@ import (
 
 // InitNacos to init nacos
 func InitNacos() (registry.Registry, *registry.Info) {
-	r, content, err := nacos.InitNacos(consts.OssDataId, consts.OssGroup)
+	content, err := nacos.InitNacos(consts.OssDataId, consts.OssGroup)
 	if err != nil {
 		klog.Fatalf("get config failed: %s", err.Error())
 	}
@@ -30,6 +30,6 @@ func InitNacos() (registry.Registry, *registry.Info) {
 	if global.ServerConfig.Host == "" {
 		global.ServerConfig.Host = "0.0.0.0"
 	}
-	info := nacos.GetRegistryInfo(global.ServerConfig.Name, global.ServerConfig.Host, global.ServerConfig.Port)
+	r, info := nacos.GetKRegistryInfo(global.ServerConfig.Name, global.ServerConfig.Host, global.ServerConfig.Port)
 	return r, info
 }
