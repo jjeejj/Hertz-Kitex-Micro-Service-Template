@@ -10,7 +10,7 @@ import (
 	"gopkg.in/natefinch/lumberjack.v2"
 )
 
-// InitKLogger to init logrus
+// InitKLogger to init logrus.
 func InitKLogger(logDirPath string, levelStr string) {
 	// Customizable output directory.
 	// logFilePath := consts.KlogFilePath
@@ -30,7 +30,7 @@ func InitKLogger(logDirPath string, levelStr string) {
 	level := klog.Level(levelStr2iIntMap[levelStr])
 	switch {
 	case level >= klog.LevelInfo:
-		// Provides compression and deletion
+		// Provides compression and deletion.
 		lumberjackLogger := &lumberjack.Logger{
 			Filename:   fileName,
 			MaxSize:    20,   // A file can be up to 20M.

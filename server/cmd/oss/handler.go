@@ -20,5 +20,6 @@ func (s *OssServiceImpl) PreSignedPutObjectUrl(ctx context.Context, req *oss.Pre
 	if err != nil {
 		return nil, err
 	}
+
 	return
 }

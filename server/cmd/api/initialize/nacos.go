@@ -11,7 +11,7 @@ import (
 	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/server/pkg/nacos"
 )
 
-// InitNacos to init nacos
+// InitNacos to init nacos.
 func InitNacos() (registry.Registry, *registry.Info) {
 	content, err := nacos.InitNacos(consts.ApiDataId, consts.ApiGroup)
 	if err != nil {
@@ -30,5 +30,6 @@ func InitNacos() (registry.Registry, *registry.Info) {
 		global.ServerConfig.Host = "0.0.0.0"
 	}
 	r, info := nacos.GetHRegistryInfo(global.ServerConfig.Name, global.ServerConfig.Host, global.ServerConfig.Port)
+
 	return r, info
 }

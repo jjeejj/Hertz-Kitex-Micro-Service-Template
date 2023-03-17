@@ -14,8 +14,8 @@ import (
 
 var configInfo *ConfigInfo
 
-// InitNacos 根据不同的环境初始化 nacos
-// 返回对应  DataId 和 Group 下的配置数据
+// InitNacos 根据不同的环境初始化 nacos.
+// 返回对应  DataId 和 Group 下的配置数据.
 func InitNacos(dataId, group string) (string, error) {
 	v := viper.New()
 	// E
@@ -62,7 +62,6 @@ func InitNacos(dataId, group string) (string, error) {
 		"serverConfigs": sc,
 		"clientConfig":  cc,
 	})
-
 	if err != nil {
 		log.Fatalf("create config client failed: %s", err.Error())
 	}
@@ -75,5 +74,6 @@ func InitNacos(dataId, group string) (string, error) {
 	if err != nil {
 		log.Fatalf("get config content failed: %s", err.Error())
 	}
+
 	return content, err
 }

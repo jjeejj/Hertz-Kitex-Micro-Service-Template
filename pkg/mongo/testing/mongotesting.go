@@ -53,7 +53,7 @@ func RunWithMongoInDocker(m *testing.M) int {
 	}
 	containerID := resp.ID
 	defer func() {
-		err := c.ContainerRemove(ctx, containerID, types.ContainerRemoveOptions{
+		err = c.ContainerRemove(ctx, containerID, types.ContainerRemoveOptions{
 			Force: true,
 		})
 		if err != nil {
@@ -81,6 +81,7 @@ func NewClient(c context.Context) (*mongo.Client, error) {
 	if mongoURI == "" {
 		return nil, fmt.Errorf("mongoDB uri not set. Please run RunWithMongoInDocker in TestMain")
 	}
+
 	return mongo.Connect(c, options.Client().ApplyURI(mongoURI))
 }
 
@@ -105,5 +106,6 @@ func SetupIndexes(c context.Context, d *mongo.Database) error {
 		},
 		Options: options.Index().SetUnique(true),
 	})
+
 	return err
 }

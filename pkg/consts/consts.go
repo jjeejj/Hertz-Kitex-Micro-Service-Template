@@ -34,7 +34,7 @@ const (
 	FreePortAddress = "localhost:0"
 )
 
-// 环境相关的
+// 环境相关的.
 const (
 	EnvKey  = "HOST_ENV" // 配置的环境变量
 	DevEnv  = "dev"      // dev 环境
@@ -42,7 +42,7 @@ const (
 	ProdEnv = "prod"
 )
 
-// 和 nacos 相关的微服务 常量
+// 和 nacos 相关的微服务 常量.
 const (
 	OssGroup  = "OSS_GROUP"
 	OssDataId = "oss_srv"

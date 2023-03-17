@@ -12,7 +12,7 @@ import (
 	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/server/cmd/oss/global"
 )
 
-// InitNacos to init nacos
+// InitNacos to init nacos.
 func InitNacos() (registry.Registry, *registry.Info) {
 	content, err := nacos.InitNacos(consts.OssDataId, consts.OssGroup)
 	if err != nil {
@@ -31,5 +31,6 @@ func InitNacos() (registry.Registry, *registry.Info) {
 		global.ServerConfig.Host = "0.0.0.0"
 	}
 	r, info := nacos.GetKRegistryInfo(global.ServerConfig.Name, global.ServerConfig.Host, global.ServerConfig.Port)
+
 	return r, info
 }

@@ -8,7 +8,7 @@ import (
 	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/server/cmd/oss/global"
 )
 
-// InitDB to init database
+// InitDB to init database.
 func InitDB() {
 	// global mode
 	var err error

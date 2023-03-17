@@ -1,6 +1,6 @@
 package rpc
 
-// Init rpc service
+// Init rpc service.
 func Init() {
-	// initAuth()
+	initOss()
 }

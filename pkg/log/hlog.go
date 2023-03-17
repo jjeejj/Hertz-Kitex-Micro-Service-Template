@@ -10,8 +10,8 @@ import (
 	"gopkg.in/natefinch/lumberjack.v2"
 )
 
-// InitHLogger to init logrus
-// logDirPath 日志目录
+// InitHLogger to init logrus.
+// logDirPath 日志目录.
 func InitHLogger(logDirPath string, levelStr string) {
 	// Customizable output directory.
 	// logFilePath := consts.HlogFilePath

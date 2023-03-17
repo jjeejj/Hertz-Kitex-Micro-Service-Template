@@ -15,7 +15,8 @@ import (
 	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/server/pkg/nacos"
 )
 
-func initAuth() {
+// initOss.
+func initOss() {
 	// init resolver
 	r, err := nacos.GetKResolve(consts.OssGroup)
 	if err != nil {
@@ -23,21 +24,21 @@ func initAuth() {
 	}
 	// init OpenTelemetry
 	provider.NewOpenTelemetryProvider(
-		provider.WithServiceName(global.ServerConfig.AuthSrvInfo.Name),
+		provider.WithServiceName(global.ServerConfig.OssSrvInfo.Name),
 		provider.WithExportEndpoint(global.ServerConfig.OtelInfo.EndPoint),
 		provider.WithInsecure(),
 	)
 
 	// create a new client
 	c, err := authservice.NewClient(
-		global.ServerConfig.AuthSrvInfo.Name,
+		global.ServerConfig.OssSrvInfo.Name,
 		client.WithResolver(r),                                     // service discovery
 		client.WithLoadBalancer(loadbalance.NewWeightedBalancer()), // load balance
 		client.WithMuxConnection(1),                                // multiplexing
 		client.WithMiddleware(middleware.CommonMiddleware),
 		client.WithInstanceMW(middleware.ClientMiddleware),
 		client.WithSuite(tracing.NewClientSuite()),
-		client.WithClientBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: global.ServerConfig.AuthSrvInfo.Name}),
+		client.WithClientBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: global.ServerConfig.OssSrvInfo.Name}),
 	)
 	if err != nil {
 		klog.Fatalf("ERROR: cannot init client: %v\n", err)

@@ -3,8 +3,9 @@ package objid
 import (
 	"fmt"
 
-	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/pkg/id"
 	"go.mongodb.org/mongo-driver/bson/primitive"
+
+	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/pkg/id"
 )
 
 // FromID converts an id to objected id.
@@ -18,6 +19,7 @@ func MustFromID(id fmt.Stringer) primitive.ObjectID {
 	if err != nil {
 		panic(err)
 	}
+
 	return oid
 }
 

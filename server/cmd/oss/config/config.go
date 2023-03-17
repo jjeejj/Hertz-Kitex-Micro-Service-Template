@@ -4,7 +4,7 @@ import (
 	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/server/pkg/mysql"
 )
 
-// ServerConfig 服务配置信息
+// ServerConfig 服务配置信息.
 type ServerConfig struct {
 	Name      string       `mapstructure:"name" json:"name"`
 	Port      int          `mapstructure:"port" json:"port"`
@@ -14,12 +14,12 @@ type ServerConfig struct {
 	OssConfig OssConfig    `mapstructure:"oss" json:"oss"`
 }
 
-// OssConfig oss 配置
+// OssConfig oss 配置.
 type OssConfig struct {
 	Minio MinioConfig `mapstructure:"minio" json:"minio"`
 }
 
-// MinioConfig minio 的配置
+// MinioConfig minio 的配置.
 type MinioConfig struct {
 	Endpoint     string `mapstructure:"endpoint" json:"endpoint"`
 	AccessKey    string `mapstructure:"access_key" json:"access_key"`

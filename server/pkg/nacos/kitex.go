@@ -18,7 +18,7 @@ import (
 	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/pkg/consts"
 )
 
-// GetKRegistryInfo 获取服务注册服务的信息
+// GetKRegistryInfo 获取服务注册服务的信息.
 func GetKRegistryInfo(serverName, serverHost string, serverPort int) (registry.Registry, *registry.Info) {
 	if serverName == "" || serverHost == "" || serverPort == 0 {
 		log.Fatal("serverName , serverHost , serverPort is empty")
@@ -59,6 +59,7 @@ func GetKRegistryInfo(serverName, serverHost string, serverPort int) (registry.R
 			"ID": sf.Generate().Base36(),
 		},
 	}
+
 	return r, info
 }
 
@@ -84,7 +85,9 @@ func GetKResolve(group string) (discovery.Resolver, error) {
 	r := nacosResolver.NewNacosResolver(registryClient, nacosResolver.WithGroup(group))
 	if err != nil {
 		log.Printf("new consul client failed: %s", err.Error())
+
 		return nil, err
 	}
+
 	return r, nil
 }

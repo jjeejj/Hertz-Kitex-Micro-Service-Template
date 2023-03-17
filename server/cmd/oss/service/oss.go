@@ -15,7 +15,7 @@ type Oss interface {
 	PreSignedPutObjectUrl(ctx context.Context, req *oss.PreSignedPutObjectUrlReq) (*oss.PreSignedPutObjectUrlResponse, error)
 }
 
-// GetOssImpl 获取 对应的 oss 的实现
+// GetOssImpl 获取 对应的 oss 的实现.
 func GetOssImpl(ossType oss.OssPlatformType) (Oss, error) {
 	var ossClient Oss
 	switch ossType {
@@ -26,7 +26,9 @@ func GetOssImpl(ossType oss.OssPlatformType) (Oss, error) {
 	case oss.OssPlatformType_ALI_YUN:
 	default:
 		klog.Warnf("not support oss type: %v", ossType)
+
 		return nil, errors.New("not support oss type")
 	}
+
 	return ossClient, nil
 }

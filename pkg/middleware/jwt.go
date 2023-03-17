@@ -8,16 +8,17 @@ import (
 
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/golang-jwt/jwt"
+
 	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/server/cmd/api/biz/errno"
 	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/server/cmd/api/global"
 	models "github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/server/cmd/api/model"
 )
 
 var (
-	TokenExpired     = errors.New("token is expired")
-	TokenNotValidYet = errors.New("token not active yet")
-	TokenMalformed   = errors.New("that's not even a token")
-	TokenInvalid     = errors.New("couldn't handle this token")
+	ErrTokenExpired     = errors.New("token is expired")
+	ErrTokenNotValidYet = errors.New("token not active yet")
+	ErrTokenMalformed   = errors.New("that's not even a token")
+	ErrTokenInvalid     = errors.New("couldn't handle this token")
 )
 
 func JWTAuth() app.HandlerFunc {
@@ -26,6 +27,7 @@ func JWTAuth() app.HandlerFunc {
 		if token == "" {
 			errno.SendResponse(c, errno.AuthorizeFail, nil)
 			c.Abort()
+
 			return
 		}
 		token = strings.Split(token, " ")[1]
@@ -33,13 +35,15 @@ func JWTAuth() app.HandlerFunc {
 		// Parse the information contained in the token
 		claims, err := j.ParseToken(token)
 		if err != nil {
-			if err == TokenExpired {
+			if errors.Is(err, ErrTokenExpired) {
 				errno.SendResponse(c, errno.AuthorizeFail, nil)
 				c.Abort()
+
 				return
 			}
 			errno.SendResponse(c, errno.AuthorizeFail, nil)
 			c.Abort()
+
 			return
 		}
 		c.Set("claims", claims)
@@ -58,13 +62,14 @@ func NewJWT() *JWT {
 	}
 }
 
-// CreateToken to create a token
+// CreateToken to create a token.
 func (j *JWT) CreateToken(claims models.CustomClaims) (string, error) {
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+
 	return token.SignedString(j.SigningKey)
 }
 
-// ParseToken to parse a token
+// ParseToken to parse a token.
 func (j *JWT) ParseToken(tokenString string) (*models.CustomClaims, error) {
 	token, err := jwt.ParseWithClaims(tokenString, &models.CustomClaims{}, func(token *jwt.Token) (i interface{}, e error) {
 		return j.SigningKey, nil
@@ -72,29 +77,31 @@ func (j *JWT) ParseToken(tokenString string) (*models.CustomClaims, error) {
 	if err != nil {
 		if ve, ok := err.(*jwt.ValidationError); ok {
 			if ve.Errors&jwt.ValidationErrorMalformed != 0 {
-				return nil, TokenMalformed
-			} else if ve.Errors&jwt.ValidationErrorExpired != 0 {
-				// Token is expired
-				return nil, TokenExpired
-			} else if ve.Errors&jwt.ValidationErrorNotValidYet != 0 {
-				return nil, TokenNotValidYet
-			} else {
-				return nil, TokenInvalid
+				return nil, ErrTokenMalformed
 			}
+			if ve.Errors&jwt.ValidationErrorExpired != 0 {
+				// Token is expired
+				return nil, ErrTokenExpired
+			}
+			if ve.Errors&jwt.ValidationErrorNotValidYet != 0 {
+				return nil, ErrTokenNotValidYet
+			}
+
+			return nil, ErrTokenInvalid
 		}
 	}
 	if token != nil {
 		if claims, ok := token.Claims.(*models.CustomClaims); ok && token.Valid {
 			return claims, nil
 		}
-		return nil, TokenInvalid
 
-	} else {
-		return nil, TokenInvalid
+		return nil, ErrTokenInvalid
 	}
+
+	return nil, ErrTokenInvalid
 }
 
-// RefreshToken to refresh a token
+// RefreshToken to refresh a token.
 func (j *JWT) RefreshToken(tokenString string) (string, error) {
 	jwt.TimeFunc = func() time.Time {
 		return time.Unix(0, 0)
@@ -108,7 +115,9 @@ func (j *JWT) RefreshToken(tokenString string) (string, error) {
 	if claims, ok := token.Claims.(*models.CustomClaims); ok && token.Valid {
 		jwt.TimeFunc = time.Now
 		claims.StandardClaims.ExpiresAt = time.Now().Add(1 * time.Hour).Unix()
+
 		return j.CreateToken(*claims)
 	}
-	return "", TokenInvalid
+
+	return "", ErrTokenInvalid
 }

@@ -19,13 +19,13 @@ type OtelConfig struct {
 }
 
 type ServerConfig struct {
-	Name        string       `mapstructure:"name" json:"name"`
-	Host        string       `mapstructure:"host" json:"host"`
-	Port        int          `mapstructure:"port" json:"port"`
-	LogLevel    string       `mapstructure:"log_level" json:"log_level"`
-	JWTInfo     JWTConfig    `mapstructure:"jwt" json:"jwt"`
-	OtelInfo    OtelConfig   `mapstructure:"otel" json:"otel"`
-	AuthSrvInfo RPCSrvConfig `mapstructure:"auth_srv" json:"auth_srv"`
+	Name       string       `mapstructure:"name" json:"name"`
+	Host       string       `mapstructure:"host" json:"host"`
+	Port       int          `mapstructure:"port" json:"port"`
+	LogLevel   string       `mapstructure:"log_level" json:"log_level"`
+	JWTInfo    JWTConfig    `mapstructure:"jwt" json:"jwt"`
+	OtelInfo   OtelConfig   `mapstructure:"otel" json:"otel"`
+	OssSrvInfo RPCSrvConfig `mapstructure:"oss_srv" json:"oss_srv"`
 }
 
 type RPCSrvConfig struct {

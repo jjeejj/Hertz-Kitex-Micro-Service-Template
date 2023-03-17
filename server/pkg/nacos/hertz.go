@@ -57,5 +57,6 @@ func GetHRegistryInfo(serverName, serverHost string, serverPort int) (registry.R
 		},
 		Weight: registry.DefaultWeight,
 	}
+
 	return r, info
 }

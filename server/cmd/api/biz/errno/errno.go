@@ -5,6 +5,7 @@ import (
 
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
+
 	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/kitex_gen/errno"
 )
 
@@ -23,7 +24,7 @@ func (e ErrNo) Error() string {
 	return fmt.Sprintf("err_code=%d, err_msg=%s", e.ErrCode, e.ErrMsg)
 }
 
-// NewErrNo return ErrNo
+// NewErrNo return ErrNo.
 func NewErrNo(code int64, msg string) ErrNo {
 	return ErrNo{
 		ErrCode: code,
@@ -33,6 +34,7 @@ func NewErrNo(code int64, msg string) ErrNo {
 
 func (e ErrNo) WithMessage(msg string) ErrNo {
 	e.ErrMsg = msg
+
 	return e
 }
 
@@ -46,7 +48,7 @@ var (
 	AuthorizeFail       = NewErrNo(int64(errno.Err_AuthorizeFail), "Authorize failed")
 )
 
-// SendResponse pack response
+// SendResponse pack response.
 func SendResponse(c *app.RequestContext, err ErrNo, data interface{}) {
 	c.JSON(consts.StatusOK, Response{
 		Code:    err.ErrCode,

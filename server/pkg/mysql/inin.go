@@ -39,11 +39,14 @@ func InitDB(c Config) (*gorm.DB, error) {
 	})
 	if err != nil {
 		klog.Fatalf("init mysql failed: %s", err.Error())
+
 		return nil, err
 	}
 	if err := db.Use(tracing.NewPlugin()); err != nil {
 		klog.Fatalf("use tracing plugin failed: %s", err.Error())
+
 		return nil, err
 	}
+
 	return db, nil
 }
