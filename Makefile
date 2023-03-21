@@ -22,3 +22,7 @@ api:
 .PHONY: oss
 oss:
 	go run ./server/cmd/oss
+
+.PHONY: mq
+mq:
+	go run ./server/cmd/mq

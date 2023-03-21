@@ -49,4 +49,7 @@ const (
 
 	ApiGroup  = "API_GROUP"
 	ApiDataId = "api"
+
+	MqGroup  = "MQ_GROUP"
+	MqDataId = "mq_srv"
 )

@@ -13,11 +13,11 @@ struct PreSignedPutObjectUrlReq {
     4: OssPlatformType type; // 存储平台类型
 }
 
-struct PreSignedPutObjectUrlResponse {
+struct PreSignedPutObjectUrlResp {
     1: string pre_signed_url;
 }
 
 service OssService {
     // 生成上传的 url 地址
-    PreSignedPutObjectUrlResponse PreSignedPutObjectUrl(1: PreSignedPutObjectUrlReq req)
+    PreSignedPutObjectUrlResp PreSignedPutObjectUrl(1: PreSignedPutObjectUrlReq req)
 }

@@ -30,6 +30,10 @@ Hertz ， Kitex 微服务模版
 1. Minio  ✅
 2. 阿里云  ❌
 
+### Mq 消息队列服务
+
+> 使用 snq 实现
+
 ## 代码生成
 
 客户端：`kitex  -thrift frugal_tag -module github.com/jjeejj/Hertz-Kitex-Micro-Service-Template ./idl/oss.thrift`
