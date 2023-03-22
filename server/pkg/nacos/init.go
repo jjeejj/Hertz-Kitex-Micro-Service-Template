@@ -57,6 +57,8 @@ func InitNacos(dataId, group string) (string, error) {
 		LogDir:              consts.NacosLogDir,
 		CacheDir:            consts.NacosCacheDir,
 		LogLevel:            consts.NacosLogLevel,
+		Username:            configInfo.User,
+		Password:            configInfo.Password,
 	}
 	configClient, err := clients.CreateConfigClient(map[string]interface{}{
 		"serverConfigs": sc,

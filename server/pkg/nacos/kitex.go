@@ -32,6 +32,8 @@ func GetKRegistryInfo(serverName, serverHost string, serverPort int) (registry.R
 				LogDir:              consts.NacosLogDir,
 				CacheDir:            consts.NacosCacheDir,
 				LogLevel:            consts.NacosLogLevel,
+				Username:            configInfo.User,
+				Password:            configInfo.Password,
 			},
 			ServerConfigs: []constant.ServerConfig{
 				{
@@ -73,6 +75,8 @@ func GetKResolve(group string) (discovery.Resolver, error) {
 				LogDir:              consts.NacosLogDir,
 				CacheDir:            consts.NacosCacheDir,
 				LogLevel:            consts.NacosLogLevel,
+				Username:            configInfo.User,
+				Password:            configInfo.Password,
 			},
 			ServerConfigs: []constant.ServerConfig{
 				{
