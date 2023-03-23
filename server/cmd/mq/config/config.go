@@ -10,5 +10,6 @@ type ServerConfig struct {
 }
 
 type MqServerConfig struct {
-	Host string `mapstructure:"host"`
+	Address     string   `mapstructure:"host" json:"host,omitempty"`
+	NSQLookupds []string `mapstructure:"host" json:"nsq_lookupds,omitempty"`
 }

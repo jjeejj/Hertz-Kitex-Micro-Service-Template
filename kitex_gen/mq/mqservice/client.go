@@ -3,11 +3,15 @@
 package mqservice
 
 import (
+	"context"
 	client "github.com/cloudwego/kitex/client"
+	callopt "github.com/cloudwego/kitex/client/callopt"
+	mq "github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/kitex_gen/mq"
 )
 
 // Client is designed to provide IDL-compatible methods with call-option parameter for kitex framework.
 type Client interface {
+	AddChannel(ctx context.Context, req *mq.AddChannelReq, callOptions ...callopt.Option) (r *mq.AddChannelResp, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -37,4 +41,9 @@ func MustNewClient(destService string, opts ...client.Option) Client {
 
 type kMqServiceClient struct {
 	*kClient
+}
+
+func (p *kMqServiceClient) AddChannel(ctx context.Context, req *mq.AddChannelReq, callOptions ...callopt.Option) (r *mq.AddChannelResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.AddChannel(ctx, req)
 }

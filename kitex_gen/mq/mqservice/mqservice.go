@@ -3,6 +3,7 @@
 package mqservice
 
 import (
+	"context"
 	client "github.com/cloudwego/kitex/client"
 	kitex "github.com/cloudwego/kitex/pkg/serviceinfo"
 	mq "github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/kitex_gen/mq"
@@ -17,7 +18,9 @@ var mqServiceServiceInfo = NewServiceInfo()
 func NewServiceInfo() *kitex.ServiceInfo {
 	serviceName := "MqService"
 	handlerType := (*mq.MqService)(nil)
-	methods := map[string]kitex.MethodInfo{}
+	methods := map[string]kitex.MethodInfo{
+		"AddChannel": kitex.NewMethodInfo(addChannelHandler, newMqServiceAddChannelArgs, newMqServiceAddChannelResult, false),
+	}
 	extra := map[string]interface{}{
 		"PackageName": "mq",
 	}
@@ -32,6 +35,24 @@ func NewServiceInfo() *kitex.ServiceInfo {
 	return svcInfo
 }
 
+func addChannelHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*mq.MqServiceAddChannelArgs)
+	realResult := result.(*mq.MqServiceAddChannelResult)
+	success, err := handler.(mq.MqService).AddChannel(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newMqServiceAddChannelArgs() interface{} {
+	return mq.NewMqServiceAddChannelArgs()
+}
+
+func newMqServiceAddChannelResult() interface{} {
+	return mq.NewMqServiceAddChannelResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -40,4 +61,14 @@ func newServiceClient(c client.Client) *kClient {
 	return &kClient{
 		c: c,
 	}
+}
+
+func (p *kClient) AddChannel(ctx context.Context, req *mq.AddChannelReq) (r *mq.AddChannelResp, err error) {
+	var _args mq.MqServiceAddChannelArgs
+	_args.Req = req
+	var _result mq.MqServiceAddChannelResult
+	if err = p.c.Call(ctx, "AddChannel", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
 }
