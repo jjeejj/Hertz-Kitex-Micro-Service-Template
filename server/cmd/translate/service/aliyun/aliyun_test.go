@@ -5,7 +5,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/kitex_gen/translator"
+	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/kitex_gen/translate"
 	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/pkg/consts"
 	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/pkg/log"
 	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/server/cmd/translate/global"
@@ -21,12 +21,12 @@ func init() {
 func TestAliYun_DetectLanguage(t *testing.T) {
 	type args struct {
 		ctx context.Context
-		req *translator.DetectLanguageReq
+		req *translate.DetectLanguageReq
 	}
 	tests := []struct {
 		name    string
 		args    args
-		want    *translator.DetectLanguageReq
+		want    *translate.DetectLanguageReq
 		wantErr bool
 	}{
 		{},
@@ -49,54 +49,54 @@ func TestAliYun_DetectLanguage(t *testing.T) {
 func TestAliYun_Translate(t *testing.T) {
 	type args struct {
 		ctx context.Context
-		req *translator.TranslateReq
+		req *translate.TranslateReq
 	}
 	tests := []struct {
 		name    string
 		args    args
-		want    *translator.TranslateResp
+		want    *translate.TranslateResp
 		wantErr bool
 	}{
 		{
 			name: "翻译中文到英文",
 			args: args{
 				ctx: context.Background(),
-				req: &translator.TranslateReq{
+				req: &translate.TranslateReq{
 					SourceLanguage: "zh",
 					TargetLanguage: "en",
 					SourceText:     "翻译中文到英文",
 				},
 			},
-			want: &translator.TranslateResp{
-				Result_: "Translate Chinese to English",
+			want: &translate.TranslateResp{
+				TranslateResult_: "Translate Chinese to English",
 			},
 		},
 		{
 			name: "翻译英文到中文",
 			args: args{
 				ctx: context.Background(),
-				req: &translator.TranslateReq{
+				req: &translate.TranslateReq{
 					SourceLanguage: "en",
 					TargetLanguage: "zh",
 					SourceText:     "Translate English to Chinese",
 				},
 			},
-			want: &translator.TranslateResp{
-				Result_: "将英语翻译成中文",
+			want: &translate.TranslateResp{
+				TranslateResult_: "将英语翻译成中文",
 			},
 		},
 		{
 			name: "自动识别语言到英文",
 			args: args{
 				ctx: context.Background(),
-				req: &translator.TranslateReq{
+				req: &translate.TranslateReq{
 					SourceLanguage: "auto",
 					TargetLanguage: "en",
 					SourceText:     "翻译中文到英文",
 				},
 			},
-			want: &translator.TranslateResp{
-				Result_: "Translate Chinese to English",
+			want: &translate.TranslateResp{
+				TranslateResult_: "Translate Chinese to English",
 			},
 		},
 	}

@@ -10,8 +10,6 @@ import (
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 	"gorm.io/gorm/schema"
-
-	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/server/cmd/auth/model"
 )
 
 // 创建数据表结果
@@ -38,9 +36,8 @@ func main() {
 		panic(err)
 	}
 	_ = db.AutoMigrate(
-		// 这里新增创建的 model
-		// &hello.ModelHello{},
-		&model.User{},
+	// 这里新增创建的 model
+	// &hello.ModelHello{},
 	)
 	db.Migrator().RenameTable("model_hello", "hello")
 }

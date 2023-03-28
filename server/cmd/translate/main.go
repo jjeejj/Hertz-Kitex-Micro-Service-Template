@@ -12,7 +12,7 @@ import (
 	"github.com/cloudwego/kitex/server"
 	"github.com/kitex-contrib/obs-opentelemetry/tracing"
 
-	translator "github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/kitex_gen/translator/translatorservice"
+	translate "github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/kitex_gen/translate/translateservice"
 	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/pkg/consts"
 	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/pkg/log"
 	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/pkg/middleware"
@@ -27,7 +27,7 @@ func main() {
 
 	initialize.InitAliYun()
 
-	svr := translator.NewServer(new(TranslatorServiceImpl), server.WithServiceAddr(utils.NewNetAddr(consts.TCP, net.JoinHostPort(global.ServerConfig.Host, strconv.Itoa(global.ServerConfig.Port)))),
+	svr := translate.NewServer(new(TranslatorServiceImpl), server.WithServiceAddr(utils.NewNetAddr(consts.TCP, net.JoinHostPort(global.ServerConfig.Host, strconv.Itoa(global.ServerConfig.Port)))),
 		server.WithRegistry(r),
 		server.WithRegistryInfo(info),
 		server.WithLimit(&limit.Option{MaxConnections: 2000, MaxQPS: 500}),
