@@ -11,7 +11,7 @@ import (
 type OssServiceImpl struct{}
 
 // PreSignedPutObjectUrl implements the OssServiceImpl interface.
-func (s *OssServiceImpl) PreSignedPutObjectUrl(ctx context.Context, req *oss.PreSignedPutObjectUrlReq) (resp *oss.PreSignedPutObjectUrlResponse, err error) {
+func (s *OssServiceImpl) PreSignedPutObjectUrl(ctx context.Context, req *oss.PreSignedPutObjectUrlReq) (resp *oss.PreSignedPutObjectUrlResp, err error) {
 	ossClient, err := service.GetOssImpl(req.Type)
 	if err != nil {
 		return nil, err

@@ -63,7 +63,7 @@ func newServiceClient(c client.Client) *kClient {
 	}
 }
 
-func (p *kClient) PreSignedPutObjectUrl(ctx context.Context, req *oss.PreSignedPutObjectUrlReq) (r *oss.PreSignedPutObjectUrlResponse, err error) {
+func (p *kClient) PreSignedPutObjectUrl(ctx context.Context, req *oss.PreSignedPutObjectUrlReq) (r *oss.PreSignedPutObjectUrlResp, err error) {
 	var _args oss.OssServicePreSignedPutObjectUrlArgs
 	_args.Req = req
 	var _result oss.OssServicePreSignedPutObjectUrlResult

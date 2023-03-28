@@ -52,4 +52,7 @@ const (
 
 	MqGroup  = "MQ_GROUP"
 	MqDataId = "mq_srv"
+
+	TranslateGroup  = "TRANSLATE_GROUP"
+	TranslateDataId = "translate_srv"
 )

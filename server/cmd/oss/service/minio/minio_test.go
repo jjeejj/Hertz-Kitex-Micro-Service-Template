@@ -12,7 +12,7 @@ import (
 )
 
 func init() {
-	initialize.InitNacos(0)
+	initialize.InitNacos()
 	initialize.InitMinio()
 }
 

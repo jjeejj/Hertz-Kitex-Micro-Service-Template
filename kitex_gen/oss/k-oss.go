@@ -297,7 +297,7 @@ func (p *PreSignedPutObjectUrlReq) field4Length() int {
 	return l
 }
 
-func (p *PreSignedPutObjectUrlResponse) FastRead(buf []byte) (int, error) {
+func (p *PreSignedPutObjectUrlResp) FastRead(buf []byte) (int, error) {
 	var err error
 	var offset int
 	var l int
@@ -359,7 +359,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_PreSignedPutObjectUrlResponse[fieldId]), err)
+	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_PreSignedPutObjectUrlResp[fieldId]), err)
 SkipFieldError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 ReadFieldEndError:
@@ -368,7 +368,7 @@ ReadStructEndError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *PreSignedPutObjectUrlResponse) FastReadField1(buf []byte) (int, error) {
+func (p *PreSignedPutObjectUrlResp) FastReadField1(buf []byte) (int, error) {
 	offset := 0
 
 	if v, l, err := bthrift.Binary.ReadString(buf[offset:]); err != nil {
@@ -383,13 +383,13 @@ func (p *PreSignedPutObjectUrlResponse) FastReadField1(buf []byte) (int, error) 
 }
 
 // for compatibility
-func (p *PreSignedPutObjectUrlResponse) FastWrite(buf []byte) int {
+func (p *PreSignedPutObjectUrlResp) FastWrite(buf []byte) int {
 	return 0
 }
 
-func (p *PreSignedPutObjectUrlResponse) FastWriteNocopy(buf []byte, binaryWriter bthrift.BinaryWriter) int {
+func (p *PreSignedPutObjectUrlResp) FastWriteNocopy(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteStructBegin(buf[offset:], "PreSignedPutObjectUrlResponse")
+	offset += bthrift.Binary.WriteStructBegin(buf[offset:], "PreSignedPutObjectUrlResp")
 	if p != nil {
 		offset += p.fastWriteField1(buf[offset:], binaryWriter)
 	}
@@ -398,9 +398,9 @@ func (p *PreSignedPutObjectUrlResponse) FastWriteNocopy(buf []byte, binaryWriter
 	return offset
 }
 
-func (p *PreSignedPutObjectUrlResponse) BLength() int {
+func (p *PreSignedPutObjectUrlResp) BLength() int {
 	l := 0
-	l += bthrift.Binary.StructBeginLength("PreSignedPutObjectUrlResponse")
+	l += bthrift.Binary.StructBeginLength("PreSignedPutObjectUrlResp")
 	if p != nil {
 		l += p.field1Length()
 	}
@@ -409,7 +409,7 @@ func (p *PreSignedPutObjectUrlResponse) BLength() int {
 	return l
 }
 
-func (p *PreSignedPutObjectUrlResponse) fastWriteField1(buf []byte, binaryWriter bthrift.BinaryWriter) int {
+func (p *PreSignedPutObjectUrlResp) fastWriteField1(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
 	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "pre_signed_url", thrift.STRING, 1)
 	offset += bthrift.Binary.WriteStringNocopy(buf[offset:], binaryWriter, p.PreSignedUrl)
@@ -418,7 +418,7 @@ func (p *PreSignedPutObjectUrlResponse) fastWriteField1(buf []byte, binaryWriter
 	return offset
 }
 
-func (p *PreSignedPutObjectUrlResponse) field1Length() int {
+func (p *PreSignedPutObjectUrlResp) field1Length() int {
 	l := 0
 	l += bthrift.Binary.FieldBeginLength("pre_signed_url", thrift.STRING, 1)
 	l += bthrift.Binary.StringLengthNocopy(p.PreSignedUrl)
@@ -628,7 +628,7 @@ ReadStructEndError:
 func (p *OssServicePreSignedPutObjectUrlResult) FastReadField0(buf []byte) (int, error) {
 	offset := 0
 
-	tmp := NewPreSignedPutObjectUrlResponse()
+	tmp := NewPreSignedPutObjectUrlResp()
 	if l, err := tmp.FastRead(buf[offset:]); err != nil {
 		return offset, err
 	} else {

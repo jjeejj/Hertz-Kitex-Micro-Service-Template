@@ -26,3 +26,7 @@ oss:
 .PHONY: mq
 mq:
 	go run ./server/cmd/mq
+
+.PHONY: translate
+translate:
+	go run ./server/cmd/translate

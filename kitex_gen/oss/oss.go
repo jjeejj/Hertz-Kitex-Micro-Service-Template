@@ -14,12 +14,15 @@ import (
 type OssPlatformType int64
 
 const (
+	OssPlatformType_UNKNOWN OssPlatformType = 0
 	OssPlatformType_MINIO   OssPlatformType = 1
 	OssPlatformType_ALI_YUN OssPlatformType = 2
 )
 
 func (p OssPlatformType) String() string {
 	switch p {
+	case OssPlatformType_UNKNOWN:
+		return "UNKNOWN"
 	case OssPlatformType_MINIO:
 		return "MINIO"
 	case OssPlatformType_ALI_YUN:
@@ -30,6 +33,8 @@ func (p OssPlatformType) String() string {
 
 func OssPlatformTypeFromString(s string) (OssPlatformType, error) {
 	switch s {
+	case "UNKNOWN":
+		return OssPlatformType_UNKNOWN, nil
 	case "MINIO":
 		return OssPlatformType_MINIO, nil
 	case "ALI_YUN":
@@ -394,30 +399,30 @@ func (p *PreSignedPutObjectUrlReq) Field4DeepEqual(src OssPlatformType) bool {
 	return true
 }
 
-type PreSignedPutObjectUrlResponse struct {
+type PreSignedPutObjectUrlResp struct {
 	PreSignedUrl string `thrift:"pre_signed_url,1" frugal:"1,default,string" json:"pre_signed_url"`
 }
 
-func NewPreSignedPutObjectUrlResponse() *PreSignedPutObjectUrlResponse {
-	return &PreSignedPutObjectUrlResponse{}
+func NewPreSignedPutObjectUrlResp() *PreSignedPutObjectUrlResp {
+	return &PreSignedPutObjectUrlResp{}
 }
 
-func (p *PreSignedPutObjectUrlResponse) InitDefault() {
-	*p = PreSignedPutObjectUrlResponse{}
+func (p *PreSignedPutObjectUrlResp) InitDefault() {
+	*p = PreSignedPutObjectUrlResp{}
 }
 
-func (p *PreSignedPutObjectUrlResponse) GetPreSignedUrl() (v string) {
+func (p *PreSignedPutObjectUrlResp) GetPreSignedUrl() (v string) {
 	return p.PreSignedUrl
 }
-func (p *PreSignedPutObjectUrlResponse) SetPreSignedUrl(val string) {
+func (p *PreSignedPutObjectUrlResp) SetPreSignedUrl(val string) {
 	p.PreSignedUrl = val
 }
 
-var fieldIDToName_PreSignedPutObjectUrlResponse = map[int16]string{
+var fieldIDToName_PreSignedPutObjectUrlResp = map[int16]string{
 	1: "pre_signed_url",
 }
 
-func (p *PreSignedPutObjectUrlResponse) Read(iprot thrift.TProtocol) (err error) {
+func (p *PreSignedPutObjectUrlResp) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -466,7 +471,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_PreSignedPutObjectUrlResponse[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_PreSignedPutObjectUrlResp[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -476,7 +481,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *PreSignedPutObjectUrlResponse) ReadField1(iprot thrift.TProtocol) error {
+func (p *PreSignedPutObjectUrlResp) ReadField1(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
@@ -485,9 +490,9 @@ func (p *PreSignedPutObjectUrlResponse) ReadField1(iprot thrift.TProtocol) error
 	return nil
 }
 
-func (p *PreSignedPutObjectUrlResponse) Write(oprot thrift.TProtocol) (err error) {
+func (p *PreSignedPutObjectUrlResp) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("PreSignedPutObjectUrlResponse"); err != nil {
+	if err = oprot.WriteStructBegin("PreSignedPutObjectUrlResp"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -514,7 +519,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *PreSignedPutObjectUrlResponse) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *PreSignedPutObjectUrlResp) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("pre_signed_url", thrift.STRING, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -531,14 +536,14 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *PreSignedPutObjectUrlResponse) String() string {
+func (p *PreSignedPutObjectUrlResp) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("PreSignedPutObjectUrlResponse(%+v)", *p)
+	return fmt.Sprintf("PreSignedPutObjectUrlResp(%+v)", *p)
 }
 
-func (p *PreSignedPutObjectUrlResponse) DeepEqual(ano *PreSignedPutObjectUrlResponse) bool {
+func (p *PreSignedPutObjectUrlResp) DeepEqual(ano *PreSignedPutObjectUrlResp) bool {
 	if p == ano {
 		return true
 	} else if p == nil || ano == nil {
@@ -550,7 +555,7 @@ func (p *PreSignedPutObjectUrlResponse) DeepEqual(ano *PreSignedPutObjectUrlResp
 	return true
 }
 
-func (p *PreSignedPutObjectUrlResponse) Field1DeepEqual(src string) bool {
+func (p *PreSignedPutObjectUrlResp) Field1DeepEqual(src string) bool {
 
 	if strings.Compare(p.PreSignedUrl, src) != 0 {
 		return false
@@ -559,7 +564,7 @@ func (p *PreSignedPutObjectUrlResponse) Field1DeepEqual(src string) bool {
 }
 
 type OssService interface {
-	PreSignedPutObjectUrl(ctx context.Context, req *PreSignedPutObjectUrlReq) (r *PreSignedPutObjectUrlResponse, err error)
+	PreSignedPutObjectUrl(ctx context.Context, req *PreSignedPutObjectUrlReq) (r *PreSignedPutObjectUrlResp, err error)
 }
 
 type OssServiceClient struct {
@@ -588,7 +593,7 @@ func (p *OssServiceClient) Client_() thrift.TClient {
 	return p.c
 }
 
-func (p *OssServiceClient) PreSignedPutObjectUrl(ctx context.Context, req *PreSignedPutObjectUrlReq) (r *PreSignedPutObjectUrlResponse, err error) {
+func (p *OssServiceClient) PreSignedPutObjectUrl(ctx context.Context, req *PreSignedPutObjectUrlReq) (r *PreSignedPutObjectUrlResp, err error) {
 	var _args OssServicePreSignedPutObjectUrlArgs
 	_args.Req = req
 	var _result OssServicePreSignedPutObjectUrlResult
@@ -658,7 +663,7 @@ func (p *ossServiceProcessorPreSignedPutObjectUrl) Process(ctx context.Context, 
 	iprot.ReadMessageEnd()
 	var err2 error
 	result := OssServicePreSignedPutObjectUrlResult{}
-	var retval *PreSignedPutObjectUrlResponse
+	var retval *PreSignedPutObjectUrlResp
 	if retval, err2 = p.handler.PreSignedPutObjectUrl(ctx, args.Req); err2 != nil {
 		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing PreSignedPutObjectUrl: "+err2.Error())
 		oprot.WriteMessageBegin("PreSignedPutObjectUrl", thrift.EXCEPTION, seqId)
@@ -860,7 +865,7 @@ func (p *OssServicePreSignedPutObjectUrlArgs) Field1DeepEqual(src *PreSignedPutO
 }
 
 type OssServicePreSignedPutObjectUrlResult struct {
-	Success *PreSignedPutObjectUrlResponse `thrift:"success,0,optional" frugal:"0,optional,PreSignedPutObjectUrlResponse" json:"success,omitempty"`
+	Success *PreSignedPutObjectUrlResp `thrift:"success,0,optional" frugal:"0,optional,PreSignedPutObjectUrlResp" json:"success,omitempty"`
 }
 
 func NewOssServicePreSignedPutObjectUrlResult() *OssServicePreSignedPutObjectUrlResult {
@@ -871,16 +876,16 @@ func (p *OssServicePreSignedPutObjectUrlResult) InitDefault() {
 	*p = OssServicePreSignedPutObjectUrlResult{}
 }
 
-var OssServicePreSignedPutObjectUrlResult_Success_DEFAULT *PreSignedPutObjectUrlResponse
+var OssServicePreSignedPutObjectUrlResult_Success_DEFAULT *PreSignedPutObjectUrlResp
 
-func (p *OssServicePreSignedPutObjectUrlResult) GetSuccess() (v *PreSignedPutObjectUrlResponse) {
+func (p *OssServicePreSignedPutObjectUrlResult) GetSuccess() (v *PreSignedPutObjectUrlResp) {
 	if !p.IsSetSuccess() {
 		return OssServicePreSignedPutObjectUrlResult_Success_DEFAULT
 	}
 	return p.Success
 }
 func (p *OssServicePreSignedPutObjectUrlResult) SetSuccess(x interface{}) {
-	p.Success = x.(*PreSignedPutObjectUrlResponse)
+	p.Success = x.(*PreSignedPutObjectUrlResp)
 }
 
 var fieldIDToName_OssServicePreSignedPutObjectUrlResult = map[int16]string{
@@ -951,7 +956,7 @@ ReadStructEndError:
 }
 
 func (p *OssServicePreSignedPutObjectUrlResult) ReadField0(iprot thrift.TProtocol) error {
-	p.Success = NewPreSignedPutObjectUrlResponse()
+	p.Success = NewPreSignedPutObjectUrlResp()
 	if err := p.Success.Read(iprot); err != nil {
 		return err
 	}
@@ -1025,7 +1030,7 @@ func (p *OssServicePreSignedPutObjectUrlResult) DeepEqual(ano *OssServicePreSign
 	return true
 }
 
-func (p *OssServicePreSignedPutObjectUrlResult) Field0DeepEqual(src *PreSignedPutObjectUrlResponse) bool {
+func (p *OssServicePreSignedPutObjectUrlResult) Field0DeepEqual(src *PreSignedPutObjectUrlResp) bool {
 
 	if !p.Success.DeepEqual(src) {
 		return false

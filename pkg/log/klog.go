@@ -7,6 +7,7 @@ import (
 
 	"github.com/cloudwego/kitex/pkg/klog"
 	kitexlogrus "github.com/kitex-contrib/obs-opentelemetry/logging/logrus"
+	"github.com/sirupsen/logrus"
 	"gopkg.in/natefinch/lumberjack.v2"
 )
 
@@ -26,7 +27,8 @@ func InitKLogger(logDirPath string, levelStr string) {
 			panic(err)
 		}
 	}
-	logger := kitexlogrus.NewLogger()
+	logrusLogger := logrus.StandardLogger()
+	logger := kitexlogrus.NewLogger(kitexlogrus.WithLogger(logrusLogger))
 	level := klog.Level(levelStr2iIntMap[levelStr])
 	switch {
 	case level >= klog.LevelInfo:
@@ -40,6 +42,7 @@ func InitKLogger(logDirPath string, levelStr string) {
 		}
 		logger.SetOutput(lumberjackLogger)
 	case level >= klog.LevelTrace:
+		// logrusLogger.SetReportCaller(true)
 		logger.SetOutput(os.Stdout)
 	default:
 		klog.Fatal("not support log level")

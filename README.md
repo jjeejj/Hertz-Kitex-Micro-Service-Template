@@ -34,6 +34,13 @@ Hertz ， Kitex 微服务模版
 
 > 使用 snq 实现
 
+### 翻译服务
+
+提供 文本翻译功能
+
+支持的翻译类型：
+1. 阿里云  ✅
+
 ## 代码生成
 
 客户端：`kitex  -thrift frugal_tag -module github.com/jjeejj/Hertz-Kitex-Micro-Service-Template ./idl/oss.thrift`

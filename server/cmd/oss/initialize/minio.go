@@ -18,7 +18,7 @@ func InitMinio() {
 	})
 	if err != nil {
 		klog.Errorf("init minio failed: %s", err.Error())
-	} else {
-		klog.Info("init minio success")
+		return
 	}
+	klog.Info("init minio success")
 }

@@ -2,6 +2,7 @@ namespace go oss
 
 // OssType oss 存储类型
 enum OssPlatformType {
+    UNKNOWN = 0,
     MINIO = 1,
     ALI_YUN = 2,
 }
