@@ -36,10 +36,11 @@ const (
 
 // 环境相关的.
 const (
-	EnvKey  = "HOST_ENV" // 配置的环境变量
-	DevEnv  = "dev"      // dev 环境
-	TestEnv = "test"
-	ProdEnv = "prod"
+	EnvKey   = "HOST_ENV" // 配置的环境变量
+	LocalEnv = "local"    // 本地开发变量
+	DevEnv   = "dev"      // dev 环境
+	TestEnv  = "test"
+	ProdEnv  = "prod"
 )
 
 // 和 nacos 相关的微服务 常量.

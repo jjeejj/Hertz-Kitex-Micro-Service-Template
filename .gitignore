@@ -21,3 +21,5 @@
 tmp/*log/
 tmp/nacos
 **/tmp
+
+config/nacos_config.yaml

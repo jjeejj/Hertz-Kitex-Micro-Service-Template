@@ -29,9 +29,11 @@ func InitNacos(dataId, group string) (string, error) {
 	}
 
 	// 读取环境变量 HOST_ENV
-	// 存在 dev | test | prod
+	// 存在 local | dev | test | prod
 	envValue := os.Getenv(consts.EnvKey)
 	switch envValue {
+	case consts.LocalEnv:
+		configInfo = config.Local
 	case consts.DevEnv:
 		configInfo = config.Dev
 	case consts.TestEnv:
