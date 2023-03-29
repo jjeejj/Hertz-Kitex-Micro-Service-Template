@@ -16,14 +16,14 @@ func InitAliYun() {
 	// global mode
 	var err error
 	global.AliYunClient, err = alimt.NewClientWithAccessKey(aliYunConfig.Region, aliYunConfig.AccessId, aliYunConfig.AccessSecret)
-	// 判断是否设置代理
-	if global.ServerConfig.AliYun.Proxy != "" {
-		global.AliYunClient.SetHttpsProxy(global.ServerConfig.AliYun.Proxy)
-		global.AliYunClient.SetHttpProxy(global.ServerConfig.AliYun.Proxy)
-	}
 	if err != nil {
 		klog.Errorf("init ali yun translate fail: %s", err.Error())
 		return
+	}
+	// 判断是否设置代理
+	if aliYunConfig.Proxy != "" {
+		global.AliYunClient.SetHttpsProxy(aliYunConfig.Proxy)
+		global.AliYunClient.SetHttpProxy(aliYunConfig.Proxy)
 	}
 	klog.Info("init ali yun translate  success")
 }
