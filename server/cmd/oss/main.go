@@ -25,10 +25,12 @@ func main() {
 	// initialization
 	r, info := initialize.InitNacos()
 	log.InitKLogger(consts.KlogFilePath, global.ServerConfig.LogLevel)
-	initialize.InitDB()
+	// initialize.InitDB()
 
 	// init minio
 	initialize.InitMinio()
+	// init aliYun
+	initialize.InitAliYun()
 
 	// Create new server.
 	srv := oss.NewServer(new(OssServiceImpl),

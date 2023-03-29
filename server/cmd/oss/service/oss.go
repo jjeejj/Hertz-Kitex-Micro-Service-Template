@@ -8,6 +8,7 @@ import (
 
 	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/kitex_gen/oss"
 	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/server/cmd/oss/global"
+	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/server/cmd/oss/service/aliyun"
 	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/server/cmd/oss/service/minio"
 )
 
@@ -24,9 +25,11 @@ func GetOssImpl(ossType oss.OssPlatformType) (Oss, error) {
 			Client: global.MinioClient,
 		}
 	case oss.OssPlatformType_ALI_YUN:
+		ossClient = &aliyun.AliYun{
+			Client: global.AliYunClient,
+		}
 	default:
 		klog.Warnf("not support oss type: %v", ossType)
-
 		return nil, errors.New("not support oss type")
 	}
 

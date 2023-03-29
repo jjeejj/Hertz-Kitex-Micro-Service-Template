@@ -457,10 +457,10 @@ linters-settings:
             - map
             - chan
 
-    nlreturn:
-        # size of the block (including return statement that is still "OK")
-        # so no return split required.
-        block-size: 1
+#    nlreturn:
+#        # size of the block (including return statement that is still "OK")
+#        # so no return split required.
+#        block-size: 1
 
     nolintlint:
         # Disable to ensure that all nolint directives actually have an effect. Default is true.
@@ -685,7 +685,7 @@ linters:
         - nakedret
         - nestif
         - nilerr
-        - nlreturn
+#        - nlreturn
         - noctx
         - nolintlint
         - paralleltest
