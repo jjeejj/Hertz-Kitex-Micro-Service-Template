@@ -2,13 +2,13 @@
 local:
     host: 127.0.0.1
     port: 8848
-    namespace: 6e815bb4-25d0-4155-a1e0-6ec17a7ee600
+    namespace: f550177d-aeca-4ddc-a0a6-9c2687fe0523
     user: 'nacos'
     password: 'nacos'
 dev:
     host: 127.0.0.1
     port: 8848
-    namespace: 6e815bb4-25d0-4155-a1e0-6ec17a7ee600
+    namespace: f550177d-aeca-4ddc-a0a6-9c2687fe0523
     user: 'nacos'
     password: 'nacos'
 test:

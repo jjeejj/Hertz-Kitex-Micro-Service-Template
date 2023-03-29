@@ -18,7 +18,7 @@
   },
   "auth_srv": {
     "name": "auth_srv"
-  },
+  }
 }
 ```
 

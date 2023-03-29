@@ -31,9 +31,11 @@ func TestAliYun_DetectLanguage(t *testing.T) {
 	}{
 		{},
 	}
+	ali := &AliYun{
+		Client: global.AliYunClient,
+	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			ali := &AliYun{}
 			got, err := ali.DetectLanguage(tt.args.ctx, tt.args.req)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("DetectLanguage() error = %v, wantErr %v", err, tt.wantErr)
@@ -100,9 +102,11 @@ func TestAliYun_Translate(t *testing.T) {
 			},
 		},
 	}
+	ali := &AliYun{
+		Client: global.AliYunClient,
+	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			ali := &AliYun{}
 			got, err := ali.Translate(tt.args.ctx, tt.args.req)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("Translate() error = %v, wantErr %v", err, tt.wantErr)

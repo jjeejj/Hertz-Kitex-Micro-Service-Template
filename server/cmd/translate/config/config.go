@@ -14,4 +14,5 @@ type AliYunConfig struct {
 	AccessId     string `mapstructure:"access_id" json:"access_id"`
 	AccessSecret string `mapstructure:"access_secret" json:"access_secret"`
 	Region       string `mapstructure:"region" json:"region"`
+	Proxy        string `mapstructure:"proxy" json:"proxy"` // 发送请求的代理地址
 }

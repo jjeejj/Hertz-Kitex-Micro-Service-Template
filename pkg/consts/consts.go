@@ -6,10 +6,8 @@ const (
 	AccountID  = "accountID"
 	ID         = "id"
 
-	OssConfigPath   = "./server/cmd/oss/config.yaml"
-	NacosConfigPath = "./config/nacos_config.yaml"
-
-	AuthGroup = "AUTH_GROUP"
+	// NacosConfigPath = "./config/nacos_config.yaml"
+	NacosConfigPath = "../../../../../config/nacos_config.yaml"
 
 	NacosLogDir   = "tmp/nacos/log"
 	NacosCacheDir = "tmp/nacos/cache"
