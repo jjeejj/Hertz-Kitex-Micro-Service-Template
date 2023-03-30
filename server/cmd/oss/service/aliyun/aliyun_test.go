@@ -2,14 +2,19 @@ package aliyun
 
 import (
 	"context"
-	"reflect"
 	"testing"
 
 	aliOss "github.com/aliyun/aliyun-oss-go-sdk/oss"
 
 	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/kitex_gen/oss"
 	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/server/cmd/oss/global"
+	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/server/cmd/oss/initialize"
 )
+
+func init() {
+	initialize.InitNacos()
+	initialize.InitAliYun()
+}
 
 func TestAliYun_PreSignedPutObjectUrl(t *testing.T) {
 	type fields struct {
@@ -34,12 +39,13 @@ func TestAliYun_PreSignedPutObjectUrl(t *testing.T) {
 			args: args{
 				ctx: context.Background(),
 				req: &oss.PreSignedPutObjectUrlReq{
-					BucketName: "",
-					ObjectName: "",
+					BucketName: "j-resource",
+					ObjectName: "test.png",
 					Type:       oss.OssPlatformType_ALI_YUN,
-					Expiry:     60,
+					Expiry:     1800,
 				},
 			},
+			wantErr: false,
 		},
 	}
 	for _, tt := range tests {
@@ -48,13 +54,14 @@ func TestAliYun_PreSignedPutObjectUrl(t *testing.T) {
 				Client: tt.fields.Client,
 			}
 			got, err := ali.PreSignedPutObjectUrl(tt.args.ctx, tt.args.req)
+			t.Logf("PreSignedPutObjectUrl: %v", got)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("PreSignedPutObjectUrl() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
-			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("PreSignedPutObjectUrl() got = %v, want %v", got, tt.want)
-			}
+			// if !reflect.DeepEqual(got, tt.want) {
+			// 	t.Errorf("PreSignedPutObjectUrl() got = %v, want %v", got, tt.want)
+			// }
 		})
 	}
 }

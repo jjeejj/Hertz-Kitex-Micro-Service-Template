@@ -13,7 +13,8 @@ type AliYun struct {
 	Client *aliOss.Client
 }
 
-// PreSignedPutObjectUrl 阿里云生成预签名的链接
+// PreSignedPutObjectUrl 阿里云生成预签名的链接.
+// 这里生成签名的时候没有 指定 Content-Type 所以前端上传的时候也不能指定 Content-Type.
 func (ali *AliYun) PreSignedPutObjectUrl(ctx context.Context, req *oss.PreSignedPutObjectUrlReq) (*oss.PreSignedPutObjectUrlResp, error) {
 	bucket, err := ali.Client.Bucket(req.BucketName)
 	if err != nil {
