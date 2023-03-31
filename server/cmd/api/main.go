@@ -31,6 +31,7 @@ func main() {
 		server.WithHostPorts(fmt.Sprintf(":%d", global.ServerConfig.Port)),
 		server.WithRegistry(r, info),
 		server.WithHandleMethodNotAllowed(true),
+		server.WithBasePath("/api"),
 	)
 	// core.
 	h.Use(cors.New(cors.Config{
