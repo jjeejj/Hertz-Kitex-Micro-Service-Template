@@ -4,8 +4,11 @@ package main
 
 import (
 	"fmt"
+	"time"
 
+	"github.com/cloudwego/hertz/pkg/app/middlewares/server/recovery"
 	"github.com/cloudwego/hertz/pkg/app/server"
+	"github.com/hertz-contrib/cors"
 	hertztracing "github.com/hertz-contrib/obs-opentelemetry/tracing"
 	"github.com/hertz-contrib/pprof"
 
@@ -29,9 +32,19 @@ func main() {
 		server.WithRegistry(r, info),
 		server.WithHandleMethodNotAllowed(true),
 	)
-	// use pprof & tracer mw
+	// core.
+	h.Use(cors.New(cors.Config{
+		AllowAllOrigins:  true,
+		AllowMethods:     []string{"GET", "POST", "PUT", "PATCH"},
+		AllowHeaders:     []string{"Origin", "Token", "Authorization"},
+		AllowCredentials: true,
+		MaxAge:           10 * time.Hour,
+		AllowWildcard:    true,
+	}))
+	// use pprof & tracer mw.
 	pprof.Register(h)
 	h.Use(hertztracing.ServerMiddleware(cfg))
 	register(h)
+	h.Use(recovery.Recovery())
 	h.Spin()
 }
