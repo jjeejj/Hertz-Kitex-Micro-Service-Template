@@ -8,6 +8,7 @@ Hertz ， Kitex 微服务模版
 * [日志模块怎么使用](./docs/日志模块怎么使用.md)
 * [API Protobuf 接口定义规范](./docs/API%20Protobuf%20接口定义规范.md)
 * [Protobuf生成TypeScript 声明](./docs/Protobuf生成TypeScript%20声明.md)
+* [如何写单元测试](./docs/如何写单元测试.md)
 
 
 ## 说明
