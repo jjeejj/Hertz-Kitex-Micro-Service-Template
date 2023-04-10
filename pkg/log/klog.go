@@ -6,8 +6,8 @@ import (
 	"time"
 
 	"github.com/cloudwego/kitex/pkg/klog"
-	kitexlogrus "github.com/kitex-contrib/obs-opentelemetry/logging/logrus"
-	"github.com/sirupsen/logrus"
+	kitexzap "github.com/kitex-contrib/obs-opentelemetry/logging/zap"
+	"go.uber.org/zap"
 	"gopkg.in/natefinch/lumberjack.v2"
 )
 
@@ -27,8 +27,8 @@ func InitKLogger(logDirPath string, levelStr string) {
 			panic(err)
 		}
 	}
-	logrusLogger := logrus.StandardLogger()
-	logger := kitexlogrus.NewLogger(kitexlogrus.WithLogger(logrusLogger))
+	// 默认的 log 不打印行号
+	logger := kitexzap.NewLogger()
 	level := klog.Level(levelStr2iIntMap[levelStr])
 	switch {
 	case level >= klog.LevelInfo:
@@ -42,6 +42,12 @@ func InitKLogger(logDirPath string, levelStr string) {
 		}
 		logger.SetOutput(lumberjackLogger)
 	case level >= klog.LevelTrace:
+		logger = kitexzap.NewLogger(
+			kitexzap.WithZapOptions(
+				zap.AddCaller(),
+				zap.AddCallerSkip(3),
+				zap.Development(),
+			))
 		// logrusLogger.SetReportCaller(true)
 		logger.SetOutput(os.Stdout)
 	default:

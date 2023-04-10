@@ -6,7 +6,8 @@ import (
 	"time"
 
 	"github.com/cloudwego/hertz/pkg/common/hlog"
-	hertzlogrus "github.com/hertz-contrib/obs-opentelemetry/logging/logrus"
+	hertzzap "github.com/hertz-contrib/obs-opentelemetry/logging/zap"
+	"go.uber.org/zap"
 	"gopkg.in/natefinch/lumberjack.v2"
 )
 
@@ -27,8 +28,9 @@ func InitHLogger(logDirPath string, levelStr string) {
 			panic(err)
 		}
 	}
-	logger := hertzlogrus.NewLogger()
 	level := hlog.Level(levelStr2iIntMap[levelStr])
+	// 默认的 log 不打印行号
+	logger := hertzzap.NewLogger()
 	switch {
 	case level >= hlog.LevelInfo:
 		// Provides compression and deletion
@@ -41,6 +43,12 @@ func InitHLogger(logDirPath string, levelStr string) {
 		}
 		logger.SetOutput(lumberjackLogger)
 	case level >= hlog.LevelTrace:
+		logger = hertzzap.NewLogger(
+			hertzzap.WithZapOptions(
+				zap.AddCaller(),
+				zap.AddCallerSkip(3),
+				zap.Development(),
+			))
 		logger.SetOutput(os.Stdout)
 	default:
 		hlog.Fatal("not support log level")
