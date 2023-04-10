@@ -19,7 +19,7 @@ func InitKLogger(logDirPath string, levelStr string) {
 		panic(err)
 	}
 
-	// Set filename to date
+	// Set filename to date.
 	logFileName := time.Now().Format("2006-01-02") + ".log"
 	fileName := path.Join(logDirPath, logFileName)
 	if _, err := os.Stat(fileName); err != nil {
@@ -27,7 +27,7 @@ func InitKLogger(logDirPath string, levelStr string) {
 			panic(err)
 		}
 	}
-	// 默认的 log 不打印行号
+	// 默认的 log 不打印行号.
 	logger := kitexzap.NewLogger()
 	level := klog.Level(levelStr2iIntMap[levelStr])
 	switch {
@@ -48,7 +48,6 @@ func InitKLogger(logDirPath string, levelStr string) {
 				zap.AddCallerSkip(3),
 				zap.Development(),
 			))
-		// logrusLogger.SetReportCaller(true)
 		logger.SetOutput(os.Stdout)
 	default:
 		klog.Fatal("not support log level")

@@ -29,7 +29,7 @@ func InitHLogger(logDirPath string, levelStr string) {
 		}
 	}
 	level := hlog.Level(levelStr2iIntMap[levelStr])
-	// 默认的 log 不打印行号
+	// 默认的 log 不打印行号.
 	logger := hertzzap.NewLogger()
 	switch {
 	case level >= hlog.LevelInfo:
