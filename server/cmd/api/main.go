@@ -22,7 +22,7 @@ import (
 func main() {
 	// initialize
 	r, info := initialize.InitNacos()
-	log.InitKLogger(consts.HlogFilePath, global.ServerConfig.LogLevel)
+	log.InitHLogger(consts.HlogFilePath, global.ServerConfig.LogLevel)
 	tracer, cfg := hertztracing.NewServerTracer()
 	rpc.Init()
 	// create a new server
