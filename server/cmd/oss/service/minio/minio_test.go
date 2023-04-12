@@ -3,7 +3,6 @@ package minio
 import (
 	"bufio"
 	"context"
-	"fmt"
 	"io"
 	"os"
 	"reflect"
@@ -43,14 +42,14 @@ func TestMinio_PutObject(t *testing.T) {
 	defer fileByte.Close()
 	stat, err := fileByte.Stat()
 	if err != nil {
-		fmt.Println(err)
+		t.Error(err)
 		return
 	}
 	// Read the file into a byte slice
 	bs := make([]byte, stat.Size())
 	_, err = bufio.NewReader(fileByte).Read(bs)
 	if err != nil && err != io.EOF {
-		fmt.Println(err)
+		t.Error(err)
 		return
 	}
 	type fields struct {
