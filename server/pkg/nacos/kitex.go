@@ -60,6 +60,7 @@ func GetKRegistryInfo(serverName, serverHost string, serverPort int) (registry.R
 		Tags: map[string]string{
 			"ID": sf.Generate().Base36(),
 		},
+		Weight: configInfo.Weight,
 	}
 
 	return r, info

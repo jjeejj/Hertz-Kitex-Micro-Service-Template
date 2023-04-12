@@ -17,4 +17,5 @@ type ConfigInfo struct {
 	Password  string `mapstructure:"password"`
 	DataId    string `mapstructure:"dataid"`
 	Group     string `mapstructure:"group"`
+	Weight    int    `mapstructure:"weight"`
 }

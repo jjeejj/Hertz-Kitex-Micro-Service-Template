@@ -57,7 +57,7 @@ func GetHRegistryInfo(serverName, serverHost string, serverPort int) (registry.R
 		Tags: map[string]string{
 			"ID": sf.Generate().Base36(),
 		},
-		Weight: registry.DefaultWeight,
+		Weight: configInfo.Weight,
 	}
 
 	return r, info
