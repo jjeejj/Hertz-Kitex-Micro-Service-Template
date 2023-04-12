@@ -22,6 +22,7 @@ struct PutObjectReq {
     1: string bucket_name;
     2: string object_name;
     3: binary file;
+    4: OssPlatformType type; // 存储平台类型
 }
 
 struct PutObjectResp {

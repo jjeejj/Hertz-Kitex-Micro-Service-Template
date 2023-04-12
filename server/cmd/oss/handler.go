@@ -26,6 +26,13 @@ func (s *OssServiceImpl) PreSignedPutObjectUrl(ctx context.Context, req *oss.Pre
 
 // PutObject implements the OssServiceImpl interface.
 func (s *OssServiceImpl) PutObject(ctx context.Context, req *oss.PutObjectReq) (resp *oss.PutObjectResp, err error) {
-	// TODO: Your code here...
+	ossClient, err := service.GetOssImpl(req.Type)
+	if err != nil {
+		return nil, err
+	}
+	resp, err = ossClient.PutObject(ctx, req)
+	if err != nil {
+		return nil, err
+	}
 	return
 }

@@ -565,9 +565,10 @@ func (p *PreSignedPutObjectUrlResp) Field1DeepEqual(src string) bool {
 }
 
 type PutObjectReq struct {
-	BucketName string `thrift:"bucket_name,1" frugal:"1,default,string" json:"bucket_name"`
-	ObjectName string `thrift:"object_name,2" frugal:"2,default,string" json:"object_name"`
-	File       []byte `thrift:"file,3" frugal:"3,default,binary" json:"file"`
+	BucketName string          `thrift:"bucket_name,1" frugal:"1,default,string" json:"bucket_name"`
+	ObjectName string          `thrift:"object_name,2" frugal:"2,default,string" json:"object_name"`
+	File       []byte          `thrift:"file,3" frugal:"3,default,binary" json:"file"`
+	Type       OssPlatformType `thrift:"type,4" frugal:"4,default,OssPlatformType" json:"type"`
 }
 
 func NewPutObjectReq() *PutObjectReq {
@@ -589,6 +590,10 @@ func (p *PutObjectReq) GetObjectName() (v string) {
 func (p *PutObjectReq) GetFile() (v []byte) {
 	return p.File
 }
+
+func (p *PutObjectReq) GetType() (v OssPlatformType) {
+	return p.Type
+}
 func (p *PutObjectReq) SetBucketName(val string) {
 	p.BucketName = val
 }
@@ -598,11 +603,15 @@ func (p *PutObjectReq) SetObjectName(val string) {
 func (p *PutObjectReq) SetFile(val []byte) {
 	p.File = val
 }
+func (p *PutObjectReq) SetType(val OssPlatformType) {
+	p.Type = val
+}
 
 var fieldIDToName_PutObjectReq = map[int16]string{
 	1: "bucket_name",
 	2: "object_name",
 	3: "file",
+	4: "type",
 }
 
 func (p *PutObjectReq) Read(iprot thrift.TProtocol) (err error) {
@@ -647,6 +656,16 @@ func (p *PutObjectReq) Read(iprot thrift.TProtocol) (err error) {
 		case 3:
 			if fieldTypeId == thrift.STRING {
 				if err = p.ReadField3(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		case 4:
+			if fieldTypeId == thrift.I32 {
+				if err = p.ReadField4(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else {
@@ -711,6 +730,15 @@ func (p *PutObjectReq) ReadField3(iprot thrift.TProtocol) error {
 	return nil
 }
 
+func (p *PutObjectReq) ReadField4(iprot thrift.TProtocol) error {
+	if v, err := iprot.ReadI32(); err != nil {
+		return err
+	} else {
+		p.Type = OssPlatformType(v)
+	}
+	return nil
+}
+
 func (p *PutObjectReq) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
 	if err = oprot.WriteStructBegin("PutObjectReq"); err != nil {
@@ -727,6 +755,10 @@ func (p *PutObjectReq) Write(oprot thrift.TProtocol) (err error) {
 		}
 		if err = p.writeField3(oprot); err != nil {
 			fieldId = 3
+			goto WriteFieldError
+		}
+		if err = p.writeField4(oprot); err != nil {
+			fieldId = 4
 			goto WriteFieldError
 		}
 
@@ -799,6 +831,23 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
 }
 
+func (p *PutObjectReq) writeField4(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("type", thrift.I32, 4); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI32(int32(p.Type)); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 4 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 4 end error: ", p), err)
+}
+
 func (p *PutObjectReq) String() string {
 	if p == nil {
 		return "<nil>"
@@ -821,6 +870,9 @@ func (p *PutObjectReq) DeepEqual(ano *PutObjectReq) bool {
 	if !p.Field3DeepEqual(ano.File) {
 		return false
 	}
+	if !p.Field4DeepEqual(ano.Type) {
+		return false
+	}
 	return true
 }
 
@@ -841,6 +893,13 @@ func (p *PutObjectReq) Field2DeepEqual(src string) bool {
 func (p *PutObjectReq) Field3DeepEqual(src []byte) bool {
 
 	if bytes.Compare(p.File, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *PutObjectReq) Field4DeepEqual(src OssPlatformType) bool {
+
+	if p.Type != src {
 		return false
 	}
 	return true
