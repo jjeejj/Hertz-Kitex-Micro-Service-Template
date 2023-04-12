@@ -30,3 +30,9 @@ func (ali *AliYun) PreSignedPutObjectUrl(ctx context.Context, req *oss.PreSigned
 		PreSignedUrl: url,
 	}, nil
 }
+
+// PutObject 通过二进制文件 上传文件
+func (ali *AliYun) PutObject(ctx context.Context, req *oss.PutObjectReq) (resp *oss.PutObjectResp, err error) {
+	// TODO: Your code here...
+	return
+}

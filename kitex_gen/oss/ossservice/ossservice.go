@@ -20,6 +20,7 @@ func NewServiceInfo() *kitex.ServiceInfo {
 	handlerType := (*oss.OssService)(nil)
 	methods := map[string]kitex.MethodInfo{
 		"PreSignedPutObjectUrl": kitex.NewMethodInfo(preSignedPutObjectUrlHandler, newOssServicePreSignedPutObjectUrlArgs, newOssServicePreSignedPutObjectUrlResult, false),
+		"PutObject":             kitex.NewMethodInfo(putObjectHandler, newOssServicePutObjectArgs, newOssServicePutObjectResult, false),
 	}
 	extra := map[string]interface{}{
 		"PackageName": "oss",
@@ -53,6 +54,24 @@ func newOssServicePreSignedPutObjectUrlResult() interface{} {
 	return oss.NewOssServicePreSignedPutObjectUrlResult()
 }
 
+func putObjectHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*oss.OssServicePutObjectArgs)
+	realResult := result.(*oss.OssServicePutObjectResult)
+	success, err := handler.(oss.OssService).PutObject(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newOssServicePutObjectArgs() interface{} {
+	return oss.NewOssServicePutObjectArgs()
+}
+
+func newOssServicePutObjectResult() interface{} {
+	return oss.NewOssServicePutObjectResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -68,6 +87,16 @@ func (p *kClient) PreSignedPutObjectUrl(ctx context.Context, req *oss.PreSignedP
 	_args.Req = req
 	var _result oss.OssServicePreSignedPutObjectUrlResult
 	if err = p.c.Call(ctx, "PreSignedPutObjectUrl", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) PutObject(ctx context.Context, req *oss.PutObjectReq) (r *oss.PutObjectResp, err error) {
+	var _args oss.OssServicePutObjectArgs
+	_args.Req = req
+	var _result oss.OssServicePutObjectResult
+	if err = p.c.Call(ctx, "PutObject", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

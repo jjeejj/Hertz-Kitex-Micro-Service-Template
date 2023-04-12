@@ -18,7 +18,19 @@ struct PreSignedPutObjectUrlResp {
     1: string pre_signed_url;
 }
 
+struct PutObjectReq {
+    1: string bucket_name;
+    2: string object_name;
+    3: binary file;
+}
+
+struct PutObjectResp {
+    1: string url;
+}
+
 service OssService {
     // 生成上传的 url 地址
-    PreSignedPutObjectUrlResp PreSignedPutObjectUrl(1: PreSignedPutObjectUrlReq req)
+    PreSignedPutObjectUrlResp PreSignedPutObjectUrl(1: PreSignedPutObjectUrlReq req);
+    // 通过二进制上传文件
+    PutObjectResp PutObject(1: PutObjectReq req);
 }

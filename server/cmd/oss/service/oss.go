@@ -14,6 +14,7 @@ import (
 
 type Oss interface {
 	PreSignedPutObjectUrl(ctx context.Context, req *oss.PreSignedPutObjectUrlReq) (*oss.PreSignedPutObjectUrlResp, error)
+	PutObject(ctx context.Context, req *oss.PutObjectReq) (resp *oss.PutObjectResp, err error)
 }
 
 // GetOssImpl 获取 对应的 oss 的实现.

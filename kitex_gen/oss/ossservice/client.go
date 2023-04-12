@@ -12,6 +12,7 @@ import (
 // Client is designed to provide IDL-compatible methods with call-option parameter for kitex framework.
 type Client interface {
 	PreSignedPutObjectUrl(ctx context.Context, req *oss.PreSignedPutObjectUrlReq, callOptions ...callopt.Option) (r *oss.PreSignedPutObjectUrlResp, err error)
+	PutObject(ctx context.Context, req *oss.PutObjectReq, callOptions ...callopt.Option) (r *oss.PutObjectResp, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -46,4 +47,9 @@ type kOssServiceClient struct {
 func (p *kOssServiceClient) PreSignedPutObjectUrl(ctx context.Context, req *oss.PreSignedPutObjectUrlReq, callOptions ...callopt.Option) (r *oss.PreSignedPutObjectUrlResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.PreSignedPutObjectUrl(ctx, req)
+}
+
+func (p *kOssServiceClient) PutObject(ctx context.Context, req *oss.PutObjectReq, callOptions ...callopt.Option) (r *oss.PutObjectResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.PutObject(ctx, req)
 }
