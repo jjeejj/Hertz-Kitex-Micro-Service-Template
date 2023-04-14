@@ -402,6 +402,7 @@ func (p *PreSignedPutObjectUrlReq) Field4DeepEqual(src OssPlatformType) bool {
 
 type PreSignedPutObjectUrlResp struct {
 	PreSignedUrl string `thrift:"pre_signed_url,1" frugal:"1,default,string" json:"pre_signed_url"`
+	ResourceUrl  string `thrift:"resource_url,2" frugal:"2,default,string" json:"resource_url"`
 }
 
 func NewPreSignedPutObjectUrlResp() *PreSignedPutObjectUrlResp {
@@ -415,12 +416,20 @@ func (p *PreSignedPutObjectUrlResp) InitDefault() {
 func (p *PreSignedPutObjectUrlResp) GetPreSignedUrl() (v string) {
 	return p.PreSignedUrl
 }
+
+func (p *PreSignedPutObjectUrlResp) GetResourceUrl() (v string) {
+	return p.ResourceUrl
+}
 func (p *PreSignedPutObjectUrlResp) SetPreSignedUrl(val string) {
 	p.PreSignedUrl = val
+}
+func (p *PreSignedPutObjectUrlResp) SetResourceUrl(val string) {
+	p.ResourceUrl = val
 }
 
 var fieldIDToName_PreSignedPutObjectUrlResp = map[int16]string{
 	1: "pre_signed_url",
+	2: "resource_url",
 }
 
 func (p *PreSignedPutObjectUrlResp) Read(iprot thrift.TProtocol) (err error) {
@@ -445,6 +454,16 @@ func (p *PreSignedPutObjectUrlResp) Read(iprot thrift.TProtocol) (err error) {
 		case 1:
 			if fieldTypeId == thrift.STRING {
 				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		case 2:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField2(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else {
@@ -491,6 +510,15 @@ func (p *PreSignedPutObjectUrlResp) ReadField1(iprot thrift.TProtocol) error {
 	return nil
 }
 
+func (p *PreSignedPutObjectUrlResp) ReadField2(iprot thrift.TProtocol) error {
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		p.ResourceUrl = v
+	}
+	return nil
+}
+
 func (p *PreSignedPutObjectUrlResp) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
 	if err = oprot.WriteStructBegin("PreSignedPutObjectUrlResp"); err != nil {
@@ -499,6 +527,10 @@ func (p *PreSignedPutObjectUrlResp) Write(oprot thrift.TProtocol) (err error) {
 	if p != nil {
 		if err = p.writeField1(oprot); err != nil {
 			fieldId = 1
+			goto WriteFieldError
+		}
+		if err = p.writeField2(oprot); err != nil {
+			fieldId = 2
 			goto WriteFieldError
 		}
 
@@ -537,6 +569,23 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
+func (p *PreSignedPutObjectUrlResp) writeField2(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("resource_url", thrift.STRING, 2); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.ResourceUrl); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
+}
+
 func (p *PreSignedPutObjectUrlResp) String() string {
 	if p == nil {
 		return "<nil>"
@@ -553,12 +602,22 @@ func (p *PreSignedPutObjectUrlResp) DeepEqual(ano *PreSignedPutObjectUrlResp) bo
 	if !p.Field1DeepEqual(ano.PreSignedUrl) {
 		return false
 	}
+	if !p.Field2DeepEqual(ano.ResourceUrl) {
+		return false
+	}
 	return true
 }
 
 func (p *PreSignedPutObjectUrlResp) Field1DeepEqual(src string) bool {
 
 	if strings.Compare(p.PreSignedUrl, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *PreSignedPutObjectUrlResp) Field2DeepEqual(src string) bool {
+
+	if strings.Compare(p.ResourceUrl, src) != 0 {
 		return false
 	}
 	return true

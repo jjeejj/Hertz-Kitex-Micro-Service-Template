@@ -3,12 +3,14 @@ package minio
 import (
 	"bytes"
 	"context"
+	"fmt"
 	"time"
 
 	"github.com/cloudwego/kitex/pkg/klog"
 	minioGo "github.com/minio/minio-go/v7"
 
 	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/kitex_gen/oss"
+	"github.com/jjeejj/Hertz-Kitex-Micro-Service-Template/server/cmd/oss/global"
 )
 
 type Minio struct {
@@ -25,6 +27,7 @@ func (minio *Minio) PreSignedPutObjectUrl(ctx context.Context, req *oss.PreSigne
 	klog.Debugf("MinioClient PreSignedPutObject success %v", url)
 	preSignedPutObjectUrl := &oss.PreSignedPutObjectUrlResp{
 		PreSignedUrl: url.String(),
+		ResourceUrl:  fmt.Sprintf("%s/%s/%s", global.ServerConfig.OssConfig.Minio.Endpoint, req.BucketName, req.ObjectName),
 	}
 	return preSignedPutObjectUrl, nil
 }

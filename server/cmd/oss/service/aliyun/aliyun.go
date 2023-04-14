@@ -31,6 +31,7 @@ func (ali *AliYun) PreSignedPutObjectUrl(ctx context.Context, req *oss.PreSigned
 	}
 	return &oss.PreSignedPutObjectUrlResp{
 		PreSignedUrl: url,
+		ResourceUrl:  fmt.Sprintf("%s.%s/%s", req.BucketName, global.ServerConfig.OssConfig.AliYun.Endpoint, req.ObjectName),
 	}, nil
 }
 

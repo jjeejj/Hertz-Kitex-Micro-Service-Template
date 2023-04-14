@@ -16,6 +16,7 @@ struct PreSignedPutObjectUrlReq {
 
 struct PreSignedPutObjectUrlResp {
     1: string pre_signed_url;
+    2: string resource_url; // 上传后的资源路径
 }
 
 struct PutObjectReq {
