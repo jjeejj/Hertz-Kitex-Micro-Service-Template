@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"context"
 	"fmt"
+	"net/url"
 	"time"
 
 	"github.com/cloudwego/kitex/pkg/klog"
@@ -19,15 +20,15 @@ type Minio struct {
 
 // PreSignedPutObjectUrl 获取 put 上传文件的签名地址
 func (minio *Minio) PreSignedPutObjectUrl(ctx context.Context, req *oss.PreSignedPutObjectUrlReq) (*oss.PreSignedPutObjectUrlResp, error) {
-	url, err := minio.Client.PresignedPutObject(ctx, req.BucketName, req.ObjectName, time.Second*time.Duration(req.Expiry))
+	objUrl, err := minio.Client.PresignedPutObject(ctx, req.BucketName, req.ObjectName, time.Second*time.Duration(req.Expiry))
 	if err != nil {
 		klog.Errorf("MinioClient PreSignedPutObject error: %v", err)
 		return nil, err
 	}
-	klog.Debugf("MinioClient PreSignedPutObject success %v", url)
+	klog.Debugf("MinioClient PreSignedPutObject success %v", objUrl)
 	preSignedPutObjectUrl := &oss.PreSignedPutObjectUrlResp{
-		PreSignedUrl: url.String(),
-		ResourceUrl:  fmt.Sprintf("%s/%s/%s", global.ServerConfig.OssConfig.Minio.Endpoint, req.BucketName, req.ObjectName),
+		PreSignedUrl: objUrl.String(),
+		ResourceUrl:  fmt.Sprintf("%s://%s/%s/%s", global.ServerConfig.OssConfig.Minio.Scheme, global.ServerConfig.OssConfig.Minio.Endpoint, req.BucketName, url.PathEscape(req.ObjectName)),
 	}
 	return preSignedPutObjectUrl, nil
 }

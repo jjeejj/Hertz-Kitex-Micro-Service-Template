@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"context"
 	"fmt"
+	"net/url"
 
 	aliOss "github.com/aliyun/aliyun-oss-go-sdk/oss"
 	"github.com/cloudwego/kitex/pkg/klog"
@@ -24,14 +25,14 @@ func (ali *AliYun) PreSignedPutObjectUrl(ctx context.Context, req *oss.PreSigned
 		klog.CtxErrorf(ctx, "AliYun Oss Bucket error: %v", err)
 		return nil, err
 	}
-	url, err := bucket.SignURL(req.ObjectName, aliOss.HTTPPut, int64(req.Expiry))
+	objUrl, err := bucket.SignURL(req.ObjectName, aliOss.HTTPPut, int64(req.Expiry))
 	if err != nil {
 		klog.CtxErrorf(ctx, "AliYun os  SignURL error: %v", err)
 		return nil, err
 	}
 	return &oss.PreSignedPutObjectUrlResp{
-		PreSignedUrl: url,
-		ResourceUrl:  fmt.Sprintf("%s.%s/%s", req.BucketName, global.ServerConfig.OssConfig.AliYun.Endpoint, req.ObjectName),
+		PreSignedUrl: objUrl,
+		ResourceUrl:  fmt.Sprintf("%s://%s.%s/%s", global.ServerConfig.OssConfig.AliYun.Scheme, req.BucketName, global.ServerConfig.OssConfig.AliYun.Endpoint, url.PathEscape(req.ObjectName)),
 	}, nil
 }
 

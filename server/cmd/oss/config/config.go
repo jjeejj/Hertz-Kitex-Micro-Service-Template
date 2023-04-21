@@ -22,6 +22,7 @@ type OssConfig struct {
 
 // MinioConfig minio 的配置.
 type MinioConfig struct {
+	Scheme       string `mapstructure:"scheme" json:"scheme"`
 	Endpoint     string `mapstructure:"endpoint" json:"endpoint"`
 	AccessKey    string `mapstructure:"access_key" json:"access_key"`
 	AccessSecret string `mapstructure:"access_secret" json:"access_secret"`
@@ -29,6 +30,7 @@ type MinioConfig struct {
 
 // AliYunConfig 阿里云 oss 配置
 type AliYunConfig struct {
+	Scheme       string `mapstructure:"scheme" json:"scheme"`
 	Endpoint     string `mapstructure:"endpoint" json:"endpoint"`
 	AccessKey    string `mapstructure:"access_key" json:"access_key"`
 	AccessSecret string `mapstructure:"access_secret" json:"access_secret"`
