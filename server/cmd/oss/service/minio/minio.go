@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"context"
 	"fmt"
-	"net/url"
 	"time"
 
 	"github.com/cloudwego/kitex/pkg/klog"
@@ -28,7 +27,7 @@ func (minio *Minio) PreSignedPutObjectUrl(ctx context.Context, req *oss.PreSigne
 	klog.Debugf("MinioClient PreSignedPutObject success %v", objUrl)
 	preSignedPutObjectUrl := &oss.PreSignedPutObjectUrlResp{
 		PreSignedUrl: objUrl.String(),
-		ResourceUrl:  fmt.Sprintf("%s://%s/%s/%s", global.ServerConfig.OssConfig.Minio.Scheme, global.ServerConfig.OssConfig.Minio.Endpoint, req.BucketName, url.PathEscape(req.ObjectName)),
+		ResourceUrl:  fmt.Sprintf("%s://%s/%s/%s", global.ServerConfig.OssConfig.Minio.Scheme, global.ServerConfig.OssConfig.Minio.Endpoint, req.BucketName, req.ObjectName),
 	}
 	return preSignedPutObjectUrl, nil
 }
