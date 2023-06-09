@@ -6,8 +6,9 @@ const (
 	AccountID  = "accountID"
 	ID         = "id"
 
-	// NacosConfigPath = "./config/nacos_config.yaml"
-	NacosConfigPath = "../../../../../config/nacos_config.yaml"
+	NacosConfigPath = "./config/nacos_config.yaml"
+
+	// NacosConfigPath = "../../../../../config/nacos_config.yaml"
 
 	NacosLogDir   = "tmp/nacos/log"
 	NacosCacheDir = "tmp/nacos/cache"

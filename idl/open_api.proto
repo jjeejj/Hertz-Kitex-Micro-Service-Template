@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package open_api;
+
+option go_package = "server/cmd/open_api";
+
+import "hz.proto";
+
+message GetTokenReq{}
+message GetTokenResp{}
+
+service OpenApiService {
+    rpc GetToken (GetTokenReq) returns (GetTokenResp) {option (api.post) = "/token";}
+}

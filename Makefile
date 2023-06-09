@@ -30,3 +30,7 @@ mq:
 .PHONY: translate
 translate:
 	go run ./server/cmd/translate
+
+.PHONY: open_api
+open_api:
+	go run ./server/cmd/open_api

@@ -1,0 +1,28 @@
+{
+    "schemes": [
+        "http"
+    ],
+    "swagger": "2.0",
+    "info": {
+        "description": "开放平台接口",
+        "title": "open api",
+        "contact": {
+            "name": "jjeejj",
+            "url": "https://github.com/jjeejj"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0"
+    },
+    "host": "localhost:8888",
+    "basePath": "/open",
+    "paths": {
+        "/token": {
+            "post": {
+                "responses": {}
+            }
+        }
+    }
+}
